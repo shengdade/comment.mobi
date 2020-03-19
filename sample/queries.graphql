@@ -1,0 +1,25 @@
+query GetRestaurant {
+  getRestaurant(id: "b423367b-eb7d-4fde-aeb5-6e5318fc76ae") {
+    id
+    name
+    averageRate
+    reviews {
+      items {
+        rate
+        visitDate
+        comment
+      }
+    }
+  }
+}
+
+query GetReview {
+  getReview(id: "45af0921-b02d-430b-a1df-37c67bc4ad1b") {
+    rate
+    visitDate
+    comment
+    restaurant {
+      name
+    }
+  }
+}

@@ -1,0 +1,18 @@
+mutation CreateRestaurant {
+  createRestaurant(input: { name: "dade place" }) {
+    id
+  }
+}
+
+mutation CreateReview {
+  createReview(
+    input: {
+      rate: three
+      visitDate: "2020-04-29"
+      comment: "great"
+      reviewRestaurantId: "b423367b-eb7d-4fde-aeb5-6e5318fc76ae"
+    }
+  ) {
+    id
+  }
+}
