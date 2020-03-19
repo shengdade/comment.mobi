@@ -1,0 +1,15 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-dade-sheng-master-195941-authRole",
+            "UnauthRoleArn": "arn:aws:iam::997286025779:role/amplify-dade-sheng-master-195941-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::997286025779:role/amplify-dade-sheng-master-195941-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-dade-sheng-master-195941-deployment",
+            "UnauthRoleName": "amplify-dade-sheng-master-195941-unauthRole",
+            "StackName": "amplify-dade-sheng-master-195941",
+            "StackId": "arn:aws:cloudformation:us-east-1:997286025779:stack/amplify-dade-sheng-master-195941/8a25d740-6974-11ea-bcb1-0ece9c9311f7",
+            "AmplifyAppId": "d2eqt0oop2vkim"
+        }
+    }
+}
