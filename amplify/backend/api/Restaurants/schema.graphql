@@ -15,7 +15,15 @@ type Restaurant
   reviews: [Review] @connection(name: "RestaurantReview")
 }
 
-type Review @model {
+type Review
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["users"], operations: [create, read] }
+      { allow: groups, groups: ["owners"], operations: [read] }
+      { allow: groups, groups: ["admin"], operations: [read, update, delete] }
+    ]
+  ) {
   id: ID!
   rate: Rate!
   visitDate: String!

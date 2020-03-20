@@ -4,20 +4,45 @@ mutation CreateReview {
       rate: three
       visitDate: "2020-04-29"
       comment: "great"
-      reviewRestaurantId: "b423367b-eb7d-4fde-aeb5-6e5318fc76ae"
+      reviewRestaurantId: "93b4adfc-f331-497a-b408-a62c009dec08"
     }
   ) {
     id
   }
 }
 
-query GetReview {
-  getReview(id: "45af0921-b02d-430b-a1df-37c67bc4ad1b") {
+mutation UpdateReview($id: ID!) {
+  updateReview(input: { id: $id, rate: one }) {
+    id
+  }
+}
+
+mutation DeleteReview($id: ID!) {
+  deleteReview(input: { id: $id }) {
+    rate
+  }
+}
+
+query GetReview($id: ID!) {
+  getReview(id: $id) {
     rate
     visitDate
     comment
     restaurant {
       name
+    }
+  }
+}
+
+query ListReview {
+  listReviews {
+    items {
+      rate
+      visitDate
+      comment
+      restaurant {
+        name
+      }
     }
   }
 }
