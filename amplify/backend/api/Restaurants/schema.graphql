@@ -1,4 +1,12 @@
-type Restaurant @model {
+type Restaurant
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["users"], operations: [read] }
+      { allow: groups, groups: ["owners"], operations: [create, read] }
+      { allow: groups, groups: ["admin"], operations: [read, update, delete] }
+    ]
+  ) {
   id: ID!
   name: String!
   averageRate: Float

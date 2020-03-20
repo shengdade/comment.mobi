@@ -16,3 +16,9 @@ mutation CreateReview {
     id
   }
 }
+
+mutation DeleteRestaurant {
+  deleteRestaurant(input: { id: "70c60fe1-bc72-497e-9ac2-dac0f4bedb9b" }) {
+    name
+  }
+}

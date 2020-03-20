@@ -1,5 +1,5 @@
 query GetRestaurant {
-  getRestaurant(id: "b423367b-eb7d-4fde-aeb5-6e5318fc76ae") {
+  getRestaurant(id: "70c60fe1-bc72-497e-9ac2-dac0f4bedb9b") {
     id
     name
     averageRate

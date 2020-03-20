@@ -50,8 +50,8 @@
     ],
     "userPoolGroupList": [
         "admin",
-        "owners"
+        "owners",
+        "users"
     ],
-    "dependsOn": [],
-    "adminQueryGroup": "admin"
+    "dependsOn": []
 }

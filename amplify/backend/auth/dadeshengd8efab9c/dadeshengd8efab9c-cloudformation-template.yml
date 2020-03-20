@@ -91,10 +91,7 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-      
-  adminQueryGroup:
-    Type: String
-            
+                
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
