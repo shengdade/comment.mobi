@@ -10,6 +10,11 @@
             "StackName": "amplify-dade-sheng-master-211714",
             "StackId": "arn:aws:cloudformation:us-east-1:997286025779:stack/amplify-dade-sheng-master-211714/93d375c0-6a48-11ea-a42a-0ed2247e0ea9",
             "AmplifyAppId": "d20u2mrblqj3lt"
+        },
+        "categories": {
+            "auth": {
+                "dadeshengd8efab9c": {}
+            }
         }
     }
 }
