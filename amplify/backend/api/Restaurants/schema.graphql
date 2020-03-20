@@ -3,12 +3,14 @@ type Restaurant
   @auth(
     rules: [
       { allow: groups, groups: ["users"], operations: [read] }
-      { allow: groups, groups: ["owners"], operations: [create, read] }
+      { allow: groups, groups: ["owners"], operations: [create] }
       { allow: groups, groups: ["admin"], operations: [read, update, delete] }
+      { allow: owner, ownerField: "owner", operations: [read] }
     ]
   ) {
   id: ID!
   name: String!
+  owner: String!
   averageRate: Float
   reviews: [Review] @connection(name: "RestaurantReview")
 }

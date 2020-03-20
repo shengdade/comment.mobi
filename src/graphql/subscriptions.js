@@ -6,6 +6,7 @@ export const onCreateRestaurant = /* GraphQL */ `
     onCreateRestaurant {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -25,6 +26,7 @@ export const onUpdateRestaurant = /* GraphQL */ `
     onUpdateRestaurant {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -44,6 +46,7 @@ export const onDeleteRestaurant = /* GraphQL */ `
     onDeleteRestaurant {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -69,6 +72,7 @@ export const onCreateReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken
@@ -88,6 +92,7 @@ export const onUpdateReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken
@@ -107,6 +112,7 @@ export const onDeleteReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken

@@ -1,0 +1,51 @@
+mutation CreateRestaurant {
+  createRestaurant(
+    input: { name: "dade place", owner: "10ff86ab-fd57-46d4-bc22-c9905adf6eda" }
+  ) {
+    id
+  }
+}
+
+mutation UpdateRestaurant($id: ID!) {
+  updateRestaurant(input: { id: $id, name: "changed" }) {
+    id
+  }
+}
+
+mutation DeleteRestaurant($id: ID!) {
+  deleteRestaurant(input: { id: $id }) {
+    name
+  }
+}
+
+query GetRestaurant($id: ID!) {
+  getRestaurant(id: $id) {
+    id
+    name
+    averageRate
+    reviews {
+      items {
+        rate
+        visitDate
+        comment
+      }
+    }
+  }
+}
+
+query ListRestaurant {
+  listRestaurants {
+    items {
+      id
+      name
+      averageRate
+      reviews {
+        items {
+          rate
+          visitDate
+          comment
+        }
+      }
+    }
+  }
+}

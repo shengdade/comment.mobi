@@ -9,6 +9,7 @@ export const createRestaurant = /* GraphQL */ `
     createRestaurant(input: $input, condition: $condition) {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -31,6 +32,7 @@ export const updateRestaurant = /* GraphQL */ `
     updateRestaurant(input: $input, condition: $condition) {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -53,6 +55,7 @@ export const deleteRestaurant = /* GraphQL */ `
     deleteRestaurant(input: $input, condition: $condition) {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -81,6 +84,7 @@ export const createReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken
@@ -103,6 +107,7 @@ export const updateReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken
@@ -125,6 +130,7 @@ export const deleteReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken

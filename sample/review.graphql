@@ -1,9 +1,3 @@
-mutation CreateRestaurant {
-  createRestaurant(input: { name: "dade place" }) {
-    id
-  }
-}
-
 mutation CreateReview {
   createReview(
     input: {
@@ -17,8 +11,13 @@ mutation CreateReview {
   }
 }
 
-mutation DeleteRestaurant {
-  deleteRestaurant(input: { id: "70c60fe1-bc72-497e-9ac2-dac0f4bedb9b" }) {
-    name
+query GetReview {
+  getReview(id: "45af0921-b02d-430b-a1df-37c67bc4ad1b") {
+    rate
+    visitDate
+    comment
+    restaurant {
+      name
+    }
   }
 }

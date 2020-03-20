@@ -6,6 +6,7 @@ export const getRestaurant = /* GraphQL */ `
     getRestaurant(id: $id) {
       id
       name
+      owner
       averageRate
       reviews {
         items {
@@ -30,6 +31,7 @@ export const listRestaurants = /* GraphQL */ `
       items {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken
@@ -50,6 +52,7 @@ export const getReview = /* GraphQL */ `
       restaurant {
         id
         name
+        owner
         averageRate
         reviews {
           nextToken
@@ -74,6 +77,7 @@ export const listReviews = /* GraphQL */ `
         restaurant {
           id
           name
+          owner
           averageRate
         }
       }
