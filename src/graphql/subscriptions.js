@@ -14,7 +14,9 @@ export const onCreateRestaurant = /* GraphQL */ `
           rate
           visitDate
           comment
+          reply
           reviewRestaurantId
+          reviewRestaurantOwner
         }
         nextToken
       }
@@ -34,7 +36,9 @@ export const onUpdateRestaurant = /* GraphQL */ `
           rate
           visitDate
           comment
+          reply
           reviewRestaurantId
+          reviewRestaurantOwner
         }
         nextToken
       }
@@ -54,7 +58,9 @@ export const onDeleteRestaurant = /* GraphQL */ `
           rate
           visitDate
           comment
+          reply
           reviewRestaurantId
+          reviewRestaurantOwner
         }
         nextToken
       }
@@ -68,7 +74,9 @@ export const onCreateReview = /* GraphQL */ `
       rate
       visitDate
       comment
+      reply
       reviewRestaurantId
+      reviewRestaurantOwner
       restaurant {
         id
         name
@@ -88,7 +96,9 @@ export const onUpdateReview = /* GraphQL */ `
       rate
       visitDate
       comment
+      reply
       reviewRestaurantId
+      reviewRestaurantOwner
       restaurant {
         id
         name
@@ -108,7 +118,9 @@ export const onDeleteReview = /* GraphQL */ `
       rate
       visitDate
       comment
+      reply
       reviewRestaurantId
+      reviewRestaurantOwner
       restaurant {
         id
         name

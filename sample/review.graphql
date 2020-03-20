@@ -5,6 +5,7 @@ mutation CreateReview {
       visitDate: "2020-04-29"
       comment: "great"
       reviewRestaurantId: "93b4adfc-f331-497a-b408-a62c009dec08"
+      reviewRestaurantOwner: "10ff86ab-fd57-46d4-bc22-c9905adf6eda"
     }
   ) {
     id
@@ -13,6 +14,12 @@ mutation CreateReview {
 
 mutation UpdateReview($id: ID!) {
   updateReview(input: { id: $id, rate: one }) {
+    id
+  }
+}
+
+mutation UpdateReply($id: ID!) {
+  updateReview(input: { id: $id, reply: "updated reply" }) {
     id
   }
 }

@@ -28,7 +28,18 @@ type Review
   rate: Rate!
   visitDate: String!
   comment: String!
+  reply: String
+    @auth(
+      rules: [
+        {
+          allow: owner
+          ownerField: "reviewRestaurantOwner"
+          operations: [update]
+        }
+      ]
+    )
   reviewRestaurantId: String!
+  reviewRestaurantOwner: String
   restaurant: Restaurant @connection(name: "RestaurantReview")
 }
 

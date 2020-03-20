@@ -14,7 +14,9 @@ export const getRestaurant = /* GraphQL */ `
           rate
           visitDate
           comment
+          reply
           reviewRestaurantId
+          reviewRestaurantOwner
         }
         nextToken
       }
@@ -48,7 +50,9 @@ export const getReview = /* GraphQL */ `
       rate
       visitDate
       comment
+      reply
       reviewRestaurantId
+      reviewRestaurantOwner
       restaurant {
         id
         name
@@ -73,7 +77,9 @@ export const listReviews = /* GraphQL */ `
         rate
         visitDate
         comment
+        reply
         reviewRestaurantId
+        reviewRestaurantOwner
         restaurant {
           id
           name
