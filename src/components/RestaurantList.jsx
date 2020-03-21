@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listRestaurants } from '../graphql/queries';
+import { listRestaurants } from '../graphql';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const fetchList = async setLoaded => {
