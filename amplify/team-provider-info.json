@@ -18,7 +18,10 @@
             },
             "function": {
                 "AdminQueriesab40cfe5": {},
-                "dadeshengd8efab9c": {}
+                "dadeshengd8efab9c": {},
+                "dadeshengd8efab9cPostConfirmation": {
+                    "GROUP": "users"
+                }
             }
         }
     }

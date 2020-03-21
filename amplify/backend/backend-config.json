@@ -3,7 +3,17 @@
         "dadeshengd8efab9c": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
-            "dependsOn": []
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "dadeshengd8efab9cPostConfirmation",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ]
         },
         "userPoolGroups": {
             "service": "Cognito-UserPool-Groups",
@@ -74,6 +84,11 @@
                     ]
                 }
             ]
+        },
+        "dadeshengd8efab9cPostConfirmation": {
+            "service": "Lambda",
+            "providerPlugin": "awscloudformation",
+            "build": true
         }
     }
 }

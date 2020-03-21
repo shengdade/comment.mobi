@@ -9,6 +9,18 @@ Parameters:
     Type: String
   
   
+  
+  
+  functiondadeshengd8efab9cPostConfirmationArn: 
+    Type: String
+    Default: functiondadeshengd8efab9cPostConfirmationArn
+  
+  functiondadeshengd8efab9cPostConfirmationName: 
+    Type: String
+    Default: functiondadeshengd8efab9cPostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -91,7 +103,31 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
+        
+  thirdPartyAuth:
+    Type: String
+                    
+  authProviders:
+    Type: CommaDelimitedList
+        
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+            
+  triggers:
+    Type: String
                 
+  hostedUI:
+    Type: String
+                              
+  parentStack:
+    Type: String
+                
+  permissions:
+    Type: CommaDelimitedList
+    
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -145,6 +181,19 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+          PostConfirmation: !Ref functiondadeshengd8efab9cPostConfirmationArn
+        
+        
+        
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -168,6 +217,59 @@ Resources:
         SnsCallerArn: !GetAtt SNSRole.Arn
         ExternalId: dadeshd8efab9c_role_external_id
     
+  
+    
+    
+  
+    
+  
+  UserPoolPostConfirmationLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functiondadeshengd8efab9cPostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
+    
+  
+  
+   
+    
+  # Updating lambda role with permissions to Cognito
+  
+  
+  dadeshengd8efab9cPostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: dadeshengd8efab9cPostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            
+              - cognito-idp:AdminAddUserToGroup
+            
+              - cognito-idp:GetGroup
+            
+              - cognito-idp:CreateGroup
+            
+            
+            
+            Resource: !GetAtt
+            
+              - UserPool
+            
+              - Arn
+            
+            
+            
+
+      Roles:
+        - !Join ['',["dadeshengd8efab9cPostConfirmation", '-', !Ref env]]
+  
+  
   
   UserPoolClientWeb:
   # Created provide application access to user pool
