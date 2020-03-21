@@ -12,6 +12,7 @@ type Restaurant
   name: String!
   owner: String!
   averageRate: Float
+  image: S3Object
   reviews: [Review] @connection(name: "RestaurantReview")
 }
 
@@ -49,4 +50,10 @@ enum Rate {
   three
   four
   five
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
 }
