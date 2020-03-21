@@ -67,7 +67,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-dade-sheng-master-211714-deployment",
+					"S3Bucket": "amplify-dade-sheng-master-232356-deployment",
 					"S3Key": "amplify-builds/AdminQueriesab40cfe5-446539726763395a626c-build.zip"
 				}
 			}
