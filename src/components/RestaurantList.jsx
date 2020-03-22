@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { listRestaurants, onCreateRestaurant } from '../graphql';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -38,11 +37,40 @@ async function attachImageUrl(item) {
   }
 }
 
+function withAverageRate(data) {
+  return data.map(item => {
+    const reviews = item.reviews.items;
+    let average = reviews.reduce((acc, cur) => acc + getRateInt(cur.rate), 0);
+    if (reviews.length) average /= reviews.length;
+    return { ...item, averageRate: average };
+  });
+}
+
+function getRateInt(S) {
+  switch (S) {
+    case 'one':
+      return 1;
+    case 'two':
+      return 2;
+    case 'three':
+      return 3;
+    case 'four':
+      return 4;
+    case 'five':
+      return 5;
+    default:
+      return 0;
+  }
+}
+
 async function fetchList(setLoaded, setRestaurants) {
   const restaurants = await API.graphql(
     graphqlOperation(listRestaurants, { limit: 100 })
   );
-  const data = _.sortBy(restaurants.data.listRestaurants.items, 'rate');
+  const data = withAverageRate(restaurants.data.listRestaurants.items).sort(
+    (a, b) => b.averageRate - a.averageRate
+  );
+  console.log(data);
   setRestaurants(await withImageUrl(data));
   setLoaded(true);
 }

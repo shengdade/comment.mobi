@@ -10,7 +10,6 @@ export const createRestaurant = /* GraphQL */ `
       id
       name
       owner
-      averageRate
       image {
         bucket
         region
@@ -40,7 +39,6 @@ export const updateRestaurant = /* GraphQL */ `
       id
       name
       owner
-      averageRate
       image {
         bucket
         region
@@ -70,7 +68,6 @@ export const deleteRestaurant = /* GraphQL */ `
       id
       name
       owner
-      averageRate
       image {
         bucket
         region
@@ -108,7 +105,6 @@ export const createReview = /* GraphQL */ `
         id
         name
         owner
-        averageRate
         image {
           bucket
           region
@@ -138,7 +134,6 @@ export const updateReview = /* GraphQL */ `
         id
         name
         owner
-        averageRate
         image {
           bucket
           region
@@ -168,7 +163,6 @@ export const deleteReview = /* GraphQL */ `
         id
         name
         owner
-        averageRate
         image {
           bucket
           region

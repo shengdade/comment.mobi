@@ -7,7 +7,6 @@ export const createRestaurant = /* GraphQL */ `
       id
       name
       owner
-      averageRate
       image {
         bucket
         region
@@ -28,7 +27,6 @@ export const listRestaurants = /* GraphQL */ `
         id
         name
         owner
-        averageRate
         image {
           bucket
           region
@@ -55,7 +53,6 @@ export const onCreateRestaurant = /* GraphQL */ `
       id
       name
       owner
-      averageRate
       image {
         bucket
         region

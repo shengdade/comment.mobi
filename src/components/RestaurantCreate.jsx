@@ -56,8 +56,7 @@ const RestaurantCreate = () => {
       const input = {
         name,
         owner,
-        image,
-        averageRate: 0
+        image
       };
 
       try {

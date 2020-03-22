@@ -1,11 +1,11 @@
 mutation CreateReview {
   createReview(
     input: {
-      rate: three
+      rate: five
       visitDate: "2020-04-29"
-      comment: "great"
-      reviewRestaurantId: "93b4adfc-f331-497a-b408-a62c009dec08"
-      reviewRestaurantOwner: "10ff86ab-fd57-46d4-bc22-c9905adf6eda"
+      comment: "amazing"
+      reviewRestaurantId: "7321d765-11b7-4c5f-b79d-99601b762e22"
+      reviewRestaurantOwner: "62fd40b2-4ac6-45c2-9329-bbfdfd04dd1b"
     }
   ) {
     id
