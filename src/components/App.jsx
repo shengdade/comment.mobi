@@ -9,6 +9,7 @@ import amber from '@material-ui/core/colors/amber';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Admin from './Admin';
 import RestaurantList from './RestaurantList';
+import RestaurantCreate from './RestaurantCreate';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -57,6 +58,7 @@ function App() {
       <CssBaseline />
       <ThemeProvider theme={theme}>
         {!loaded && <LinearProgress />}
+        <RestaurantCreate />
         {render}
       </ThemeProvider>
     </React.Fragment>

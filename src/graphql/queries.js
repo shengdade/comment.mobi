@@ -8,6 +8,11 @@ export const getRestaurant = /* GraphQL */ `
       name
       owner
       averageRate
+      image {
+        bucket
+        region
+        key
+      }
       reviews {
         items {
           id
@@ -35,6 +40,11 @@ export const listRestaurants = /* GraphQL */ `
         name
         owner
         averageRate
+        image {
+          bucket
+          region
+          key
+        }
         reviews {
           nextToken
         }
@@ -58,6 +68,11 @@ export const getReview = /* GraphQL */ `
         name
         owner
         averageRate
+        image {
+          bucket
+          region
+          key
+        }
         reviews {
           nextToken
         }

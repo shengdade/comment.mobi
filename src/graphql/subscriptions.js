@@ -8,6 +8,11 @@ export const onCreateRestaurant = /* GraphQL */ `
       name
       owner
       averageRate
+      image {
+        bucket
+        region
+        key
+      }
       reviews {
         items {
           id
@@ -30,6 +35,11 @@ export const onUpdateRestaurant = /* GraphQL */ `
       name
       owner
       averageRate
+      image {
+        bucket
+        region
+        key
+      }
       reviews {
         items {
           id
@@ -52,6 +62,11 @@ export const onDeleteRestaurant = /* GraphQL */ `
       name
       owner
       averageRate
+      image {
+        bucket
+        region
+        key
+      }
       reviews {
         items {
           id
@@ -82,6 +97,11 @@ export const onCreateReview = /* GraphQL */ `
         name
         owner
         averageRate
+        image {
+          bucket
+          region
+          key
+        }
         reviews {
           nextToken
         }
@@ -104,6 +124,11 @@ export const onUpdateReview = /* GraphQL */ `
         name
         owner
         averageRate
+        image {
+          bucket
+          region
+          key
+        }
         reviews {
           nextToken
         }
@@ -126,6 +151,11 @@ export const onDeleteReview = /* GraphQL */ `
         name
         owner
         averageRate
+        image {
+          bucket
+          region
+          key
+        }
         reviews {
           nextToken
         }

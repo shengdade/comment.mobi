@@ -1,3 +1,22 @@
+export const createRestaurant = /* GraphQL */ `
+  mutation CreateRestaurant(
+    $input: CreateRestaurantInput!
+    $condition: ModelRestaurantConditionInput
+  ) {
+    createRestaurant(input: $input, condition: $condition) {
+      id
+      name
+      owner
+      averageRate
+      image {
+        bucket
+        region
+        key
+      }
+    }
+  }
+`;
+
 export const listRestaurants = /* GraphQL */ `
   query ListRestaurants(
     $filter: ModelRestaurantFilterInput
@@ -10,6 +29,11 @@ export const listRestaurants = /* GraphQL */ `
         name
         owner
         averageRate
+        image {
+          bucket
+          region
+          key
+        }
         reviews {
           items {
             rate
