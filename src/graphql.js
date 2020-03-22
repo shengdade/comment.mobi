@@ -48,3 +48,19 @@ export const listRestaurants = /* GraphQL */ `
     }
   }
 `;
+
+export const onCreateRestaurant = /* GraphQL */ `
+  subscription OnCreateRestaurant {
+    onCreateRestaurant {
+      id
+      name
+      owner
+      averageRate
+      image {
+        bucket
+        region
+        key
+      }
+    }
+  }
+`;

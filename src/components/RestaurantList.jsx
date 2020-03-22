@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
-import { listRestaurants } from '../graphql';
+import { listRestaurants, onCreateRestaurant } from '../graphql';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -27,11 +27,15 @@ const useStyles = makeStyles({
 });
 
 async function withImageUrl(data) {
-  return Promise.all(
-    data.map(async item => {
-      return { ...item, imageUrl: await Storage.get(item.image.key) };
-    })
-  );
+  return Promise.all(data.map(item => attachImageUrl(item)));
+}
+
+async function attachImageUrl(item) {
+  if (item && item.image && item.image.key) {
+    return { ...item, imageUrl: await Storage.get(item.image.key) };
+  } else {
+    return item;
+  }
 }
 
 async function fetchList(setLoaded, setRestaurants) {
@@ -46,10 +50,26 @@ async function fetchList(setLoaded, setRestaurants) {
 const RestaurantList = () => {
   const [loaded, setLoaded] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const classes = useStyles();
+
   useEffect(() => {
     fetchList(setLoaded, setRestaurants);
   }, []);
-  const classes = useStyles();
+
+  useEffect(() => {
+    const subscriber = API.graphql(
+      graphqlOperation(onCreateRestaurant)
+    ).subscribe({
+      next: async provider => {
+        const newRestaurant = await attachImageUrl(
+          provider.value.data.onCreateRestaurant
+        );
+        setRestaurants(previous => [...previous, newRestaurant]);
+      }
+    });
+    return () => subscriber.unsubscribe();
+  }, []);
+
   return (
     <>
       {!loaded && <LinearProgress />}
@@ -58,10 +78,12 @@ const RestaurantList = () => {
           <Grid item key={restaurant.id} xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className={classes.card}>
               <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={restaurant.imageUrl}
-                />
+                {restaurant.imageUrl && (
+                  <CardMedia
+                    className={classes.media}
+                    image={restaurant.imageUrl}
+                  />
+                )}
                 <CardContent>
                   <Typography gutterBottom variant="h5">
                     {restaurant.name}
