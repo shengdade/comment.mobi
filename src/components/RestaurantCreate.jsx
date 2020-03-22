@@ -12,6 +12,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
+import Notification from './Notification';
 import config from '../aws-exports';
 
 const {
@@ -21,6 +22,7 @@ const {
 
 const RestaurantCreate = () => {
   const [creating, setCreating] = useState(false);
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
   const [name, setName] = useState('');
   const [owner, setOwner] = useState('');
   const [file, setFile] = useState(null);
@@ -62,8 +64,8 @@ const RestaurantCreate = () => {
       try {
         await Storage.put(key, file, { contentType: mimeType });
         await API.graphql(graphqlOperation(createRestaurant, { input }));
-        console.log('successfully stored user data!');
         setCreating(false);
+        setSnackBarOpen(true);
         handleClose();
       } catch (err) {
         console.log('error: ', err);
@@ -139,6 +141,11 @@ const RestaurantCreate = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Notification
+        open={snackBarOpen}
+        setOpen={setSnackBarOpen}
+        message="Restaurant Created"
+      />
     </>
   );
 };
