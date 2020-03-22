@@ -61,3 +61,19 @@ export const onCreateRestaurant = /* GraphQL */ `
     }
   }
 `;
+
+export const createReview = /* GraphQL */ `
+  mutation CreateReview(
+    $input: CreateReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    createReview(input: $input, condition: $condition) {
+      id
+      rate
+      visitDate
+      comment
+      reviewRestaurantId
+      reviewRestaurantOwner
+    }
+  }
+`;

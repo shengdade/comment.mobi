@@ -4,6 +4,8 @@ import { Auth } from 'aws-amplify';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -56,11 +58,13 @@ function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <ThemeProvider theme={theme}>
-        {!loaded && <LinearProgress />}
-        <RestaurantCreate />
-        {render}
-      </ThemeProvider>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <ThemeProvider theme={theme}>
+          {!loaded && <LinearProgress />}
+          <RestaurantCreate />
+          {render}
+        </ThemeProvider>
+      </MuiPickersUtilsProvider>
     </React.Fragment>
   );
 }

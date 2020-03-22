@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import { listRestaurants, onCreateRestaurant } from '../graphql';
+import ReviewCreate from './ReviewCreate';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -70,7 +71,6 @@ async function fetchList(setLoaded, setRestaurants) {
   const data = withAverageRate(restaurants.data.listRestaurants.items).sort(
     (a, b) => b.averageRate - a.averageRate
   );
-  console.log(data);
   setRestaurants(await withImageUrl(data));
   setLoaded(true);
 }
@@ -78,6 +78,7 @@ async function fetchList(setLoaded, setRestaurants) {
 const RestaurantList = () => {
   const [loaded, setLoaded] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const [review, setReview] = useState({ open: false });
   const classes = useStyles();
 
   useEffect(() => {
@@ -97,6 +98,10 @@ const RestaurantList = () => {
     });
     return () => subscriber.unsubscribe();
   }, []);
+
+  const handleReviewClose = () => {
+    setReview(previous => ({ ...previous, open: false }));
+  };
 
   return (
     <>
@@ -125,7 +130,18 @@ const RestaurantList = () => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() =>
+                    setReview({
+                      open: true,
+                      restaurantId: restaurant.id,
+                      restaurantName: restaurant.name,
+                      restaurantOwner: restaurant.owner
+                    })
+                  }
+                >
                   Review
                 </Button>
               </CardActions>
@@ -133,6 +149,13 @@ const RestaurantList = () => {
           </Grid>
         ))}
       </Grid>
+      <ReviewCreate
+        open={review.open}
+        handleClose={handleReviewClose}
+        restaurantId={review.restaurantId}
+        restaurantName={review.restaurantName}
+        restaurantOwner={review.restaurantOwner}
+      />
     </>
   );
 };
