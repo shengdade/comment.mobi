@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import RoleContext from './RoleContext';
 import { Auth } from 'aws-amplify';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -22,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ButtonAppBar() {
+  const role = useContext(RoleContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -39,7 +41,9 @@ export default function ButtonAppBar() {
         <Typography variant="h6" className={classes.title}>
           Restaurants
         </Typography>
-        <RestaurantCreate open={open} handleClose={() => setOpen(false)} />
+        {role === 'owners' && (
+          <RestaurantCreate open={open} handleClose={() => setOpen(false)} />
+        )}
         <Button
           className={classes.button}
           variant="outlined"

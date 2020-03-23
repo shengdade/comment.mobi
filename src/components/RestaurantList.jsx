@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
+import RoleContext from './RoleContext';
 import { listRestaurants, onCreateRestaurant } from '../graphql';
 import ReviewCreate from './ReviewCreate';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -76,6 +77,7 @@ async function fetchList(setLoaded, setRestaurants) {
 }
 
 const RestaurantList = () => {
+  const role = useContext(RoleContext);
   const [loaded, setLoaded] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
   const [review, setReview] = useState({ open: false });
@@ -86,18 +88,20 @@ const RestaurantList = () => {
   }, []);
 
   useEffect(() => {
-    const subscriber = API.graphql(
-      graphqlOperation(onCreateRestaurant)
-    ).subscribe({
-      next: async provider => {
-        const newRestaurant = await attachImageUrl(
-          provider.value.data.onCreateRestaurant
-        );
-        setRestaurants(previous => [...previous, newRestaurant]);
-      }
-    });
-    return () => subscriber.unsubscribe();
-  }, []);
+    if (role !== 'users') {
+      const subscriber = API.graphql(
+        graphqlOperation(onCreateRestaurant)
+      ).subscribe({
+        next: async provider => {
+          const newRestaurant = await attachImageUrl(
+            provider.value.data.onCreateRestaurant
+          );
+          setRestaurants(previous => [...previous, newRestaurant]);
+        }
+      });
+      return () => subscriber.unsubscribe();
+    }
+  }, [role]);
 
   const handleReviewClose = () => {
     setReview(previous => ({ ...previous, open: false }));
