@@ -11,7 +11,7 @@ import amber from '@material-ui/core/colors/amber';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Admin from './Admin';
 import RestaurantList from './RestaurantList';
-import RestaurantCreate from './RestaurantCreate';
+import Header from './Header';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -61,7 +61,7 @@ function App() {
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <ThemeProvider theme={theme}>
           {!loaded && <LinearProgress />}
-          <RestaurantCreate />
+          <Header />
           {render}
         </ThemeProvider>
       </MuiPickersUtilsProvider>
@@ -70,7 +70,7 @@ function App() {
 }
 
 export default withAuthenticator(App, {
-  includeGreetings: true,
+  includeGreetings: false,
   usernameAttributes: 'email',
   signUpConfig: { hiddenDefaults: ['phone_number'] }
 });

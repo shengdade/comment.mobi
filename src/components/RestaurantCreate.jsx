@@ -87,8 +87,8 @@ const RestaurantCreate = () => {
 
   return (
     <>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
+        New Restaurant
       </Button>
       <Dialog open={open} onClose={handleClose}>
         {creating && <LinearProgress />}
