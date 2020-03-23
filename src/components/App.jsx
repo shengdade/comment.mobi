@@ -8,7 +8,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import RoleContext from './RoleContext';
 import DateFnsUtils from '@date-io/date-fns';
 import green from '@material-ui/core/colors/green';
-import amber from '@material-ui/core/colors/amber';
+import orange from '@material-ui/core/colors/orange';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Admin from './Admin';
 import RestaurantList from './RestaurantList';
@@ -37,7 +37,7 @@ function App() {
   const theme = createMuiTheme({
     palette: {
       primary: green,
-      secondary: amber
+      secondary: orange
     }
   });
 

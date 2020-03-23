@@ -5,6 +5,8 @@ import { createRestaurant } from '../graphql';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -87,9 +89,11 @@ const RestaurantCreate = () => {
 
   return (
     <>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
-        New Restaurant
-      </Button>
+      <Tooltip title="create restaurant">
+        <IconButton color="primary" onClick={handleClickOpen}>
+          <Icon color="action">add_circle_outline</Icon>
+        </IconButton>
+      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         {creating && <LinearProgress />}
         <DialogTitle>Create Restaurant</DialogTitle>

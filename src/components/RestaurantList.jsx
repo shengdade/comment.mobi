@@ -4,6 +4,7 @@ import RoleContext from './RoleContext';
 import { listRestaurants, onCreateRestaurant } from '../graphql';
 import ReviewCreate from './ReviewCreate';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -110,49 +111,51 @@ const RestaurantList = () => {
   return (
     <>
       {!loaded && <LinearProgress />}
-      <Grid container alignItems="center" className={classes.grid}>
-        {restaurants.map(restaurant => (
-          <Grid item key={restaurant.id} xs={12} sm={6} md={4} lg={3} xl={2}>
-            <Card className={classes.card}>
-              <CardActionArea>
-                {restaurant.imageUrl && (
-                  <CardMedia
-                    className={classes.media}
-                    image={restaurant.imageUrl}
-                  />
-                )}
-                <CardContent>
-                  <Typography gutterBottom variant="h5">
-                    {restaurant.name}
-                  </Typography>
-                  <Rating
-                    value={restaurant.averageRate}
-                    precision={0.1}
+      <Container maxWidth="lg">
+        <Grid container alignItems="center" className={classes.grid}>
+          {restaurants.map(restaurant => (
+            <Grid item key={restaurant.id} xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Card className={classes.card}>
+                <CardActionArea>
+                  {restaurant.imageUrl && (
+                    <CardMedia
+                      className={classes.media}
+                      image={restaurant.imageUrl}
+                    />
+                  )}
+                  <CardContent>
+                    <Typography gutterBottom variant="h6">
+                      {restaurant.name}
+                    </Typography>
+                    <Rating
+                      value={restaurant.averageRate}
+                      precision={0.1}
+                      size="small"
+                      readOnly
+                    />
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button
                     size="small"
-                    readOnly
-                  />
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  onClick={() =>
-                    setReview({
-                      open: true,
-                      restaurantId: restaurant.id,
-                      restaurantName: restaurant.name,
-                      restaurantOwner: restaurant.owner
-                    })
-                  }
-                >
-                  Review
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+                    color="primary"
+                    onClick={() =>
+                      setReview({
+                        open: true,
+                        restaurantId: restaurant.id,
+                        restaurantName: restaurant.name,
+                        restaurantOwner: restaurant.owner
+                      })
+                    }
+                  >
+                    Review
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
       <ReviewCreate
         open={review.open}
         handleClose={handleReviewClose}
