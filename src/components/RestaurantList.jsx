@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import RoleContext from './RoleContext';
-import { listRestaurants, onCreateRestaurant } from '../graphql';
+import {
+  listRestaurants,
+  onCreateRestaurant,
+  onCreateReview
+} from '../graphql';
 import ReviewCreate from './ReviewCreate';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Container from '@material-ui/core/Container';
@@ -113,6 +117,25 @@ const RestaurantList = () => {
       return () => subscriber.unsubscribe();
     }
   }, [role]);
+
+  useEffect(() => {
+    const subscriber = API.graphql(graphqlOperation(onCreateReview)).subscribe({
+      next: provider => {
+        const newReview = provider.value.data.onCreateReview;
+        const updatedRestaurant = restaurants.find(
+          r => r.id === newReview.reviewRestaurantId
+        );
+        updatedRestaurant.reviews.items.push(newReview);
+        setRestaurants(previous =>
+          [
+            ...previous.filter(r => r.id !== updatedRestaurant.id),
+            ...withAverageRate([updatedRestaurant])
+          ].sort((a, b) => b.averageRate - a.averageRate)
+        );
+      }
+    });
+    return () => subscriber.unsubscribe();
+  }, [restaurants]);
 
   const handleReviewClose = () => {
     setReview(previous => ({ ...previous, open: false }));

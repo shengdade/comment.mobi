@@ -77,3 +77,16 @@ export const createReview = /* GraphQL */ `
     }
   }
 `;
+
+export const onCreateReview = /* GraphQL */ `
+  subscription OnCreateReview {
+    onCreateReview {
+      id
+      rate
+      visitDate
+      comment
+      reviewRestaurantId
+      reviewRestaurantOwner
+    }
+  }
+`;
