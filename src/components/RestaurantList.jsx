@@ -26,6 +26,10 @@ const useStyles = makeStyles({
   },
   rating: {
     display: 'flex',
+    alignItems: 'center'
+  },
+  ratingFilter: {
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '15px'
@@ -102,6 +106,7 @@ const RestaurantList = () => {
           const newRestaurant = await attachImageUrl(
             provider.value.data.onCreateRestaurant
           );
+          newRestaurant.averageRate = 0;
           setRestaurants(previous => [...previous, newRestaurant]);
         }
       });
@@ -117,7 +122,7 @@ const RestaurantList = () => {
     <>
       {!loaded && <LinearProgress />}
       <Container maxWidth="lg">
-        <div className={classes.rating}>
+        <div className={classes.ratingFilter}>
           <Rating
             name="rating-filter"
             value={ratingAbove}
@@ -130,34 +135,30 @@ const RestaurantList = () => {
         <Grid container alignItems="center">
           {restaurants
             .filter(r => r.averageRate >= ratingAbove)
-            .map(restaurant => (
-              <Grid
-                item
-                key={restaurant.id}
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                xl={2}
-              >
+            .map(({ id, name, owner, averageRate, imageUrl }) => (
+              <Grid item key={id} xs={12} sm={6} md={4} lg={3} xl={2}>
                 <Card className={classes.card}>
                   <CardActionArea>
-                    {restaurant.imageUrl && (
-                      <CardMedia
-                        className={classes.media}
-                        image={restaurant.imageUrl}
-                      />
+                    {imageUrl && (
+                      <CardMedia className={classes.media} image={imageUrl} />
                     )}
                     <CardContent>
                       <Typography gutterBottom variant="h6">
-                        {restaurant.name}
+                        {name}
                       </Typography>
-                      <Rating
-                        value={restaurant.averageRate}
-                        precision={0.1}
-                        size="small"
-                        readOnly
-                      />
+                      <div className={classes.rating}>
+                        <Rating
+                          value={averageRate}
+                          precision={0.1}
+                          size="small"
+                          readOnly
+                        />
+                        <Box ml={1}>
+                          <Typography variant="body2">
+                            ({Math.round(averageRate * 10) / 10})
+                          </Typography>
+                        </Box>
+                      </div>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
@@ -167,9 +168,9 @@ const RestaurantList = () => {
                       onClick={() =>
                         setReview({
                           open: true,
-                          restaurantId: restaurant.id,
-                          restaurantName: restaurant.name,
-                          restaurantOwner: restaurant.owner
+                          restaurantId: id,
+                          restaurantName: name,
+                          restaurantOwner: owner
                         })
                       }
                     >
