@@ -11,7 +11,7 @@ import { getRateInt } from './Utils';
 import Button from '@material-ui/core/Button';
 
 function ReviewList({ reviews }) {
-  const handleReply = () => {};
+  const handleReply = id => {};
 
   return (
     <List disablePadding>
@@ -28,7 +28,11 @@ function ReviewList({ reviews }) {
               secondary={
                 <React.Fragment>
                   {comment}
-                  <Button size="small" color="primary" onClick={handleReply}>
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => handleReply(id)}
+                  >
                     Reply
                   </Button>
                 </React.Fragment>

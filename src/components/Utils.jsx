@@ -14,3 +14,20 @@ export function getRateInt(S) {
       return 0;
   }
 }
+
+export function translateRate(rate) {
+  switch (rate) {
+    case 1:
+      return 'one';
+    case 2:
+      return 'two';
+    case 3:
+      return 'three';
+    case 4:
+      return 'four';
+    case 5:
+      return 'five';
+    default:
+      return 'five';
+  }
+}

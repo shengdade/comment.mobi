@@ -11,6 +11,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Rating from '@material-ui/lab/Rating';
 import Notification from './Notification';
+import { translateRate } from './Utils';
 
 const ReviewCreate = ({
   open,
@@ -24,23 +25,6 @@ const ReviewCreate = ({
   const [rate, setRate] = useState(5);
   const [visitDate, setVisitDate] = useState(new Date());
   const [comment, setComment] = useState('');
-
-  function translateRate(rate) {
-    switch (rate) {
-      case 1:
-        return 'one';
-      case 2:
-        return 'two';
-      case 3:
-        return 'three';
-      case 4:
-        return 'four';
-      case 5:
-        return 'five';
-      default:
-        return 'five';
-    }
-  }
 
   async function leaveReview() {
     setCreating(true);

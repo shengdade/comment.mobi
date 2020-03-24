@@ -221,7 +221,7 @@ const RestaurantList = () => {
                         className={classes.expandText}
                         variant="body2"
                       >
-                        {reviews.items.length > 0
+                        {reviews && reviews.items.length > 0
                           ? `${reviews.items.length} ${
                               reviews.items.length === 1 ? 'review' : 'reviews'
                             } unreplied`
@@ -243,7 +243,11 @@ const RestaurantList = () => {
                   <Collapse in={expanded[id]} timeout="auto" unmountOnExit>
                     <CardContent>
                       <ReviewList
-                        reviews={reviews.items.filter(r => r.reply === null)}
+                        reviews={
+                          reviews
+                            ? reviews.items.filter(r => r.reply === null)
+                            : []
+                        }
                       />
                     </CardContent>
                   </Collapse>
