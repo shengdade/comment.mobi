@@ -119,23 +119,27 @@ const RestaurantList = () => {
   }, [role]);
 
   useEffect(() => {
-    const subscriber = API.graphql(graphqlOperation(onCreateReview)).subscribe({
-      next: provider => {
-        const newReview = provider.value.data.onCreateReview;
-        const updatedRestaurant = restaurants.find(
-          r => r.id === newReview.reviewRestaurantId
-        );
-        updatedRestaurant.reviews.items.push(newReview);
-        setRestaurants(previous =>
-          [
-            ...previous.filter(r => r.id !== updatedRestaurant.id),
-            ...withAverageRate([updatedRestaurant])
-          ].sort((a, b) => b.averageRate - a.averageRate)
-        );
-      }
-    });
-    return () => subscriber.unsubscribe();
-  }, [restaurants]);
+    if (role === 'users') {
+      const subscriber = API.graphql(
+        graphqlOperation(onCreateReview)
+      ).subscribe({
+        next: provider => {
+          const newReview = provider.value.data.onCreateReview;
+          const updatedRestaurant = restaurants.find(
+            r => r.id === newReview.reviewRestaurantId
+          );
+          updatedRestaurant.reviews.items.push(newReview);
+          setRestaurants(previous =>
+            [
+              ...previous.filter(r => r.id !== updatedRestaurant.id),
+              ...withAverageRate([updatedRestaurant])
+            ].sort((a, b) => b.averageRate - a.averageRate)
+          );
+        }
+      });
+      return () => subscriber.unsubscribe();
+    }
+  }, [restaurants, role]);
 
   const handleReviewClose = () => {
     setReview(previous => ({ ...previous, open: false }));
