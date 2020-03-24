@@ -102,7 +102,7 @@ const RestaurantList = () => {
   }, []);
 
   useEffect(() => {
-    if (role !== 'users') {
+    if (role === 'owners') {
       const subscriber = API.graphql(
         graphqlOperation(onCreateRestaurant)
       ).subscribe({
