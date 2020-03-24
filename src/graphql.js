@@ -34,6 +34,7 @@ export const listRestaurants = /* GraphQL */ `
         }
         reviews {
           items {
+            id
             rate
             visitDate
             comment

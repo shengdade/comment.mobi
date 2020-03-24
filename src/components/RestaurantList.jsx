@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import RoleContext from './RoleContext';
+import clsx from 'clsx';
 import {
   listRestaurants,
   onCreateRestaurant,
@@ -14,16 +15,33 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import ReviewList from './ReviewList';
+import { getRateInt } from './Utils';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   media: {
     height: 140
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  },
+  expandText: {
+    margin: 'auto'
   },
   card: {
     margin: '10px'
@@ -38,7 +56,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
     padding: '15px'
   }
-});
+}));
 
 async function withImageUrl(data) {
   return Promise.all(data.map(item => attachImageUrl(item)));
@@ -61,23 +79,6 @@ function withAverageRate(data) {
   });
 }
 
-function getRateInt(S) {
-  switch (S) {
-    case 'one':
-      return 1;
-    case 'two':
-      return 2;
-    case 'three':
-      return 3;
-    case 'four':
-      return 4;
-    case 'five':
-      return 5;
-    default:
-      return 0;
-  }
-}
-
 async function fetchList(setLoaded, setRestaurants) {
   const restaurants = await API.graphql(
     graphqlOperation(listRestaurants, { limit: 100 })
@@ -95,6 +96,7 @@ const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [ratingAbove, setRatingAbove] = useState(0);
   const [review, setReview] = useState({ open: false });
+  const [expanded, setExpanded] = useState({});
   const classes = useStyles();
 
   useEffect(() => {
@@ -145,6 +147,13 @@ const RestaurantList = () => {
     setReview(previous => ({ ...previous, open: false }));
   };
 
+  const handleExpandClick = id => {
+    setExpanded(previous => ({
+      ...previous,
+      [id]: previous[id] ? false : true
+    }));
+  };
+
   return (
     <>
       {!loaded && <LinearProgress />}
@@ -159,10 +168,10 @@ const RestaurantList = () => {
           />
           <Box ml={1}>& Up</Box>
         </div>
-        <Grid container alignItems="center">
+        <Grid container>
           {restaurants
             .filter(r => r.averageRate >= ratingAbove)
-            .map(({ id, name, owner, averageRate, imageUrl }) => (
+            .map(({ id, name, owner, averageRate, imageUrl, reviews }) => (
               <Grid item key={id} xs={12} sm={6} md={4} lg={3} xl={2}>
                 <Card className={classes.card}>
                   <CardActionArea>
@@ -188,22 +197,56 @@ const RestaurantList = () => {
                       </div>
                     </CardContent>
                   </CardActionArea>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() =>
-                        setReview({
-                          open: true,
-                          restaurantId: id,
-                          restaurantName: name,
-                          restaurantOwner: owner
-                        })
-                      }
-                    >
-                      Review
-                    </Button>
-                  </CardActions>
+                  {role === 'users' && (
+                    <CardActions>
+                      <Button
+                        size="small"
+                        color="primary"
+                        onClick={() =>
+                          setReview({
+                            open: true,
+                            restaurantId: id,
+                            restaurantName: name,
+                            restaurantOwner: owner
+                          })
+                        }
+                      >
+                        Review
+                      </Button>
+                    </CardActions>
+                  )}
+                  {role === 'owners' && (
+                    <CardActions disableSpacing>
+                      <Typography
+                        className={classes.expandText}
+                        variant="body2"
+                      >
+                        {reviews.items.length > 0
+                          ? `${reviews.items.length} ${
+                              reviews.items.length === 1 ? 'review' : 'reviews'
+                            } unreplied`
+                          : 'no unreplied reviews'}
+                      </Typography>
+                      <IconButton
+                        className={clsx(classes.expand, {
+                          [classes.expandOpen]: expanded[id]
+                        })}
+                        onClick={() => {
+                          handleExpandClick(id);
+                        }}
+                        aria-label="show more"
+                      >
+                        <Icon>expand_more</Icon>
+                      </IconButton>
+                    </CardActions>
+                  )}
+                  <Collapse in={expanded[id]} timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <ReviewList
+                        reviews={reviews.items.filter(r => r.reply === null)}
+                      />
+                    </CardContent>
+                  </Collapse>
                 </Card>
               </Grid>
             ))}
