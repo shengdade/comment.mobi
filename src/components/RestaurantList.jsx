@@ -15,16 +15,20 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles({
-  grid: {
-    margin: '15px 0 15px 0'
-  },
   media: {
     height: 140
   },
   card: {
     margin: '10px'
+  },
+  rating: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '15px'
   }
 });
 
@@ -81,6 +85,7 @@ const RestaurantList = () => {
   const role = useContext(RoleContext);
   const [loaded, setLoaded] = useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const [ratingAbove, setRatingAbove] = useState(0);
   const [review, setReview] = useState({ open: false });
   const classes = useStyles();
 
@@ -112,48 +117,68 @@ const RestaurantList = () => {
     <>
       {!loaded && <LinearProgress />}
       <Container maxWidth="lg">
-        <Grid container alignItems="center" className={classes.grid}>
-          {restaurants.map(restaurant => (
-            <Grid item key={restaurant.id} xs={12} sm={6} md={4} lg={3} xl={2}>
-              <Card className={classes.card}>
-                <CardActionArea>
-                  {restaurant.imageUrl && (
-                    <CardMedia
-                      className={classes.media}
-                      image={restaurant.imageUrl}
-                    />
-                  )}
-                  <CardContent>
-                    <Typography gutterBottom variant="h6">
-                      {restaurant.name}
-                    </Typography>
-                    <Rating
-                      value={restaurant.averageRate}
-                      precision={0.1}
+        <div className={classes.rating}>
+          <Rating
+            name="rating-filter"
+            value={ratingAbove}
+            onChange={(event, newValue) => {
+              setRatingAbove(newValue);
+            }}
+          />
+          <Box ml={1}>& Up</Box>
+        </div>
+        <Grid container alignItems="center">
+          {restaurants
+            .filter(r => r.averageRate >= ratingAbove)
+            .map(restaurant => (
+              <Grid
+                item
+                key={restaurant.id}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={2}
+              >
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    {restaurant.imageUrl && (
+                      <CardMedia
+                        className={classes.media}
+                        image={restaurant.imageUrl}
+                      />
+                    )}
+                    <CardContent>
+                      <Typography gutterBottom variant="h6">
+                        {restaurant.name}
+                      </Typography>
+                      <Rating
+                        value={restaurant.averageRate}
+                        precision={0.1}
+                        size="small"
+                        readOnly
+                      />
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button
                       size="small"
-                      readOnly
-                    />
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() =>
-                      setReview({
-                        open: true,
-                        restaurantId: restaurant.id,
-                        restaurantName: restaurant.name,
-                        restaurantOwner: restaurant.owner
-                      })
-                    }
-                  >
-                    Review
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+                      color="primary"
+                      onClick={() =>
+                        setReview({
+                          open: true,
+                          restaurantId: restaurant.id,
+                          restaurantName: restaurant.name,
+                          restaurantOwner: restaurant.owner
+                        })
+                      }
+                    >
+                      Review
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
         </Grid>
       </Container>
       <ReviewCreate
