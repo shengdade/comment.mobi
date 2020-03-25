@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
+import { Route, Switch } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -12,6 +13,7 @@ import orange from '@material-ui/core/colors/orange';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Admin from './Admin';
 import RestaurantList from './RestaurantList';
+import RestaurantDetail from './RestaurantDetail';
 import Header from './Header';
 
 function App() {
@@ -41,21 +43,6 @@ function App() {
     }
   });
 
-  let render;
-  switch (cognitoGroup) {
-    case 'admin':
-      render = <Admin />;
-      break;
-    case 'owners':
-      render = <RestaurantList />;
-      break;
-    case 'users':
-      render = <RestaurantList />;
-      break;
-    default:
-      render = <div />;
-  }
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -64,7 +51,11 @@ function App() {
           <RoleContext.Provider value={cognitoGroup}>
             {!loaded && <LinearProgress />}
             <Header />
-            {render}
+            <Switch>
+              <Route exact path="/" component={RestaurantList} />
+              <Route exact path="/admin" component={Admin} />
+              <Route path="/restaurants/:id" component={RestaurantDetail} />
+            </Switch>
           </RoleContext.Provider>
         </ThemeProvider>
       </MuiPickersUtilsProvider>

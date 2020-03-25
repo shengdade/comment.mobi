@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
 import RoleContext from './RoleContext';
 import clsx from 'clsx';
@@ -203,27 +205,37 @@ const RestaurantList = () => {
               <Grid item key={id} xs={12} sm={6} md={4} lg={3} xl={2}>
                 <Card className={classes.card}>
                   <CardActionArea>
-                    {imageUrl && (
-                      <CardMedia className={classes.media} image={imageUrl} />
-                    )}
-                    <CardContent>
-                      <Typography gutterBottom variant="h6">
-                        {name}
-                      </Typography>
-                      <div className={classes.rating}>
-                        <Rating
-                          value={averageRate}
-                          precision={0.1}
-                          size="small"
-                          readOnly
-                        />
-                        <Box ml={1}>
-                          <Typography variant="body2">
-                            ({Math.round(averageRate * 10) / 10})
-                          </Typography>
-                        </Box>
-                      </div>
-                    </CardContent>
+                    <Link
+                      component={RouterLink}
+                      style={{ textDecoration: 'none' }}
+                      to={`/restaurants/${id}`}
+                    >
+                      {imageUrl && (
+                        <CardMedia className={classes.media} image={imageUrl} />
+                      )}
+                      <CardContent>
+                        <Typography
+                          gutterBottom
+                          color="textPrimary"
+                          variant="h6"
+                        >
+                          {name}
+                        </Typography>
+                        <div className={classes.rating}>
+                          <Rating
+                            value={averageRate}
+                            precision={0.1}
+                            size="small"
+                            readOnly
+                          />
+                          <Box ml={1}>
+                            <Typography color="textPrimary" variant="body2">
+                              ({Math.round(averageRate * 10) / 10})
+                            </Typography>
+                          </Box>
+                        </div>
+                      </CardContent>
+                    </Link>
                   </CardActionArea>
                   {role === 'users' && (
                     <CardActions>
