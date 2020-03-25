@@ -24,7 +24,9 @@ const ReplyCreate = ({
   reviewId,
   reviewComment,
   reviewRate,
-  reviewVisitDate
+  reviewVisitDate,
+  restaurantId,
+  changeReview
 }) => {
   const [updating, setUpdating] = useState(false);
   const [snackBarOpen, setSnackBarOpen] = useState(false);
@@ -37,10 +39,13 @@ const ReplyCreate = ({
       reply: reply.trim()
     };
     try {
-      await API.graphql(graphqlOperation(updateReview, { input }));
+      const newReview = await API.graphql(
+        graphqlOperation(updateReview, { input })
+      );
       setUpdating(false);
       setSnackBarOpen(true);
       handleDialogClose();
+      changeReview(restaurantId, reviewId, newReview.data.updateReview);
     } catch (err) {
       console.log('error: ', err);
     }
@@ -84,6 +89,7 @@ const ReplyCreate = ({
           </ListItem>
           <TextField
             required
+            autoFocus
             fullWidth
             multiline
             label="Reply"

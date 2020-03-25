@@ -11,7 +11,7 @@ import Rating from '@material-ui/lab/Rating';
 import { getRateInt } from './Utils';
 import Button from '@material-ui/core/Button';
 
-function ReviewList({ reviews }) {
+function ReviewList({ restaurantId, changeReview, reviews }) {
   const [reply, setReply] = useState({ open: false });
 
   const handleReplyClose = () => {
@@ -64,6 +64,8 @@ function ReviewList({ reviews }) {
         reviewComment={reply.reviewComment}
         reviewRate={reply.reviewRate}
         reviewVisitDate={reply.reviewVisitDate}
+        restaurantId={restaurantId}
+        changeReview={changeReview}
       />
     </List>
   );

@@ -68,6 +68,7 @@ const ReviewCreate = ({
           />
           <TextField
             required
+            autoFocus
             fullWidth
             multiline
             label="Comment"

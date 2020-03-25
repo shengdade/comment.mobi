@@ -90,6 +90,20 @@ async function fetchList(setLoaded, setRestaurants) {
   setLoaded(true);
 }
 
+function getExpandText(reviews) {
+  if (reviews && reviews.items.length > 0) {
+    const unreplied = reviews.items.filter(r => r.reply === null);
+    const count = unreplied.length;
+    if (count === 1) {
+      return `${count} review unreplied`;
+    } else {
+      return `${count} reviews unreplied`;
+    }
+  } else {
+    return 'no unreplied reviews';
+  }
+}
+
 const RestaurantList = () => {
   const role = useContext(RoleContext);
   const [loaded, setLoaded] = useState(false);
@@ -152,6 +166,20 @@ const RestaurantList = () => {
       ...previous,
       [id]: previous[id] ? false : true
     }));
+  };
+
+  const changeReview = (restaurantId, reviewId, newReview) => {
+    setRestaurants(previous => {
+      const updatedRestaurant = previous.find(r => r.id === restaurantId);
+      updatedRestaurant.reviews.items = [
+        ...updatedRestaurant.reviews.items.filter(r => r.id !== reviewId),
+        newReview
+      ];
+      return [
+        ...previous.filter(p => p.id !== restaurantId),
+        updatedRestaurant
+      ].sort((a, b) => b.averageRate - a.averageRate);
+    });
   };
 
   return (
@@ -221,11 +249,7 @@ const RestaurantList = () => {
                         className={classes.expandText}
                         variant="body2"
                       >
-                        {reviews && reviews.items.length > 0
-                          ? `${reviews.items.length} ${
-                              reviews.items.length === 1 ? 'review' : 'reviews'
-                            } unreplied`
-                          : 'no unreplied reviews'}
+                        {getExpandText(reviews)}
                       </Typography>
                       <IconButton
                         className={clsx(classes.expand, {
@@ -243,6 +267,8 @@ const RestaurantList = () => {
                   <Collapse in={expanded[id]} timeout="auto" unmountOnExit>
                     <CardContent>
                       <ReviewList
+                        restaurantId={id}
+                        changeReview={changeReview}
                         reviews={
                           reviews
                             ? reviews.items.filter(r => r.reply === null)
