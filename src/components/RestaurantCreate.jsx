@@ -58,7 +58,7 @@ const RestaurantCreate = () => {
         region
       };
       const input = {
-        name,
+        name: name.trim(),
         owner,
         image
       };

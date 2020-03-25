@@ -1,21 +1,26 @@
 import React from 'react';
+import { useState } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
+import ReplyCreate from './ReplyCreate';
 import Avatar from '@material-ui/core/Avatar';
 import Rating from '@material-ui/lab/Rating';
 import { getRateInt } from './Utils';
 import Button from '@material-ui/core/Button';
 
 function ReviewList({ reviews }) {
-  const handleReply = id => {};
+  const [reply, setReply] = useState({ open: false });
+
+  const handleReplyClose = () => {
+    setReply(previous => ({ ...previous, open: false }));
+  };
 
   return (
     <List disablePadding>
-      {reviews.map(({ id, comment, rate }, idx) => (
+      {reviews.map(({ id, comment, rate, visitDate }, idx) => (
         <React.Fragment key={id}>
           <ListItem>
             <ListItemAvatar>
@@ -31,7 +36,15 @@ function ReviewList({ reviews }) {
                   <Button
                     size="small"
                     color="primary"
-                    onClick={() => handleReply(id)}
+                    onClick={() =>
+                      setReply({
+                        open: true,
+                        reviewId: id,
+                        reviewComment: comment,
+                        reviewRate: rate,
+                        reviewVisitDate: visitDate
+                      })
+                    }
                   >
                     Reply
                   </Button>
@@ -44,6 +57,14 @@ function ReviewList({ reviews }) {
           )}
         </React.Fragment>
       ))}
+      <ReplyCreate
+        open={reply.open}
+        handleClose={handleReplyClose}
+        reviewId={reply.reviewId}
+        reviewComment={reply.reviewComment}
+        reviewRate={reply.reviewRate}
+        reviewVisitDate={reply.reviewVisitDate}
+      />
     </List>
   );
 }

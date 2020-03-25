@@ -91,3 +91,18 @@ export const onCreateReview = /* GraphQL */ `
     }
   }
 `;
+
+export const updateReview = /* GraphQL */ `
+  mutation UpdateReview(
+    $input: UpdateReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    updateReview(input: $input, condition: $condition) {
+      id
+      rate
+      visitDate
+      comment
+      reply
+    }
+  }
+`;

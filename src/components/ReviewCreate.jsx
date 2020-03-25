@@ -31,7 +31,7 @@ const ReviewCreate = ({
     const input = {
       rate: translateRate(rate),
       visitDate: visitDate.toISOString().slice(0, 10),
-      comment,
+      comment: comment.trim(),
       reviewRestaurantId: restaurantId,
       reviewRestaurantOwner: restaurantOwner
     };
