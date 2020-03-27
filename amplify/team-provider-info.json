@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-dade-sheng-dev-213652-authRole",
+            "UnauthRoleArn": "arn:aws:iam::852396516851:role/amplify-dade-sheng-dev-213652-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::852396516851:role/amplify-dade-sheng-dev-213652-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-dade-sheng-dev-213652-deployment",
+            "UnauthRoleName": "amplify-dade-sheng-dev-213652-unauthRole",
+            "StackName": "amplify-dade-sheng-dev-213652",
+            "StackId": "arn:aws:cloudformation:us-east-1:852396516851:stack/amplify-dade-sheng-dev-213652/1309a2d0-7073-11ea-b1f7-0e36ce6a2c7c",
+            "AmplifyAppId": "d1jtj36u9ngava"
+        }
+    }
+}
