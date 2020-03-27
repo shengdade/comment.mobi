@@ -16,6 +16,33 @@ export const createRestaurant = /* GraphQL */ `
   }
 `;
 
+export const getRestaurant = /* GraphQL */ `
+  query GetRestaurant($id: ID!) {
+    getRestaurant(id: $id) {
+      id
+      name
+      owner
+      image {
+        bucket
+        region
+        key
+      }
+      reviews {
+        items {
+          id
+          rate
+          visitDate
+          comment
+          reply
+          reviewRestaurantId
+          reviewRestaurantOwner
+        }
+        nextToken
+      }
+    }
+  }
+`;
+
 export const listRestaurants = /* GraphQL */ `
   query ListRestaurants(
     $filter: ModelRestaurantFilterInput

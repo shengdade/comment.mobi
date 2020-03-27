@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import RestaurantCreate from './RestaurantCreate';
 
 const useStyles = makeStyles(theme => ({
@@ -25,7 +27,14 @@ export default function ButtonAppBar() {
     <AppBar color="secondary" position="sticky">
       <Toolbar variant="dense">
         <Typography variant="h6" className={classes.title}>
-          Restaurants
+          <Link
+            component={RouterLink}
+            style={{ textDecoration: 'none' }}
+            color="textPrimary"
+            to={`/`}
+          >
+            Restaurants
+          </Link>
         </Typography>
         {role === 'owners' && (
           <RestaurantCreate open={open} handleClose={() => setOpen(false)} />
