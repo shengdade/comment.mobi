@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
-import { getRestaurant } from '../graphql';
+import { getRestaurant, deleteRestaurant } from '../graphql';
 import { getRateInt } from './Utils';
+import RoleContext from './RoleContext';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -12,10 +14,14 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Rating from '@material-ui/lab/Rating';
 import Grid from '@material-ui/core/Grid';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
+import Button from '@material-ui/core/Button';
+import RestaurantUpdate from './RestaurantUpdate';
+import AlertDialog from './AlertDialog';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -36,12 +42,18 @@ const useStyles = makeStyles(theme => ({
   ownerAvatar: {
     width: theme.spacing(3),
     height: theme.spacing(3)
+  },
+  adminActions: {
+    justifyContent: 'flex-end'
   }
 }));
 
 const RestaurantDetail = props => {
   const restaurantId = props.match.params.id;
+  const role = useContext(RoleContext);
+  const history = useHistory();
   const [loaded, setLoaded] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
   const [restaurant, setRestaurant] = useState({});
   const [highestReview, setHighestReview] = useState(null);
   const [lowestReview, setLowestReview] = useState(null);
@@ -94,6 +106,19 @@ const RestaurantDetail = props => {
     fetchRestaurant();
   }, [restaurantId]);
 
+  async function closeRestaurant() {
+    const input = {
+      id: restaurantId
+    };
+    try {
+      await API.graphql(graphqlOperation(deleteRestaurant, { input }));
+      setAlertOpen(false);
+      history.push('/');
+    } catch (err) {
+      console.log('error: ', err);
+    }
+  }
+
   return (
     <>
       {!loaded && <LinearProgress />}
@@ -123,6 +148,25 @@ const RestaurantDetail = props => {
                     </Box>
                   </div>
                 </CardContent>
+                {role === 'admin' && (
+                  <CardActions className={classes.adminActions}>
+                    <RestaurantUpdate
+                      id={restaurant.id}
+                      name={restaurant.name}
+                      setRestaurant={setRestaurant}
+                    />
+                    <Button color="primary" onClick={() => setAlertOpen(true)}>
+                      Delete
+                    </Button>
+                    <AlertDialog
+                      open={alertOpen}
+                      handleClose={() => setAlertOpen(false)}
+                      title={`Closing ${restaurant.name}`}
+                      description="Are you true that you want to close this restaurant?"
+                      action={closeRestaurant}
+                    />
+                  </CardActions>
+                )}
               </Card>
             </Grid>
           </Grid>

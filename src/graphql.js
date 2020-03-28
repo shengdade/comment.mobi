@@ -90,6 +90,37 @@ export const onCreateRestaurant = /* GraphQL */ `
   }
 `;
 
+export const updateRestaurant = /* GraphQL */ `
+  mutation UpdateRestaurant(
+    $input: UpdateRestaurantInput!
+    $condition: ModelRestaurantConditionInput
+  ) {
+    updateRestaurant(input: $input, condition: $condition) {
+      id
+      name
+      owner
+      image {
+        bucket
+        region
+        key
+      }
+    }
+  }
+`;
+
+export const deleteRestaurant = /* GraphQL */ `
+  mutation DeleteRestaurant(
+    $input: DeleteRestaurantInput!
+    $condition: ModelRestaurantConditionInput
+  ) {
+    deleteRestaurant(input: $input, condition: $condition) {
+      id
+      name
+      owner
+    }
+  }
+`;
+
 export const createReview = /* GraphQL */ `
   mutation CreateReview(
     $input: CreateReviewInput!
