@@ -164,3 +164,18 @@ export const updateReview = /* GraphQL */ `
     }
   }
 `;
+
+export const deleteReview = /* GraphQL */ `
+  mutation DeleteReview(
+    $input: DeleteReviewInput!
+    $condition: ModelReviewConditionInput
+  ) {
+    deleteReview(input: $input, condition: $condition) {
+      id
+      rate
+      visitDate
+      comment
+      reply
+    }
+  }
+`;

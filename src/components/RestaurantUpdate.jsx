@@ -48,6 +48,7 @@ const RestaurantUpdate = ({ id, name: previousName, setRestaurant }) => {
           name,
           imageUrl
         }));
+        previousName = name;
         setCreating(false);
         setSnackBarOpen(true);
         handleClose();

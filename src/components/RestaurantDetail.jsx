@@ -9,27 +9,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
-import { format } from 'date-fns';
-import CardHeader from '@material-ui/core/CardHeader';
 import Rating from '@material-ui/lab/Rating';
 import Grid from '@material-ui/core/Grid';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
-import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import RestaurantUpdate from './RestaurantUpdate';
 import AlertDialog from './AlertDialog';
+import ReviewCard from './ReviewCard';
 
 const useStyles = makeStyles(theme => ({
   card: {
     margin: '8px'
-  },
-  comment: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1)
   },
   rating: {
     display: 'flex',
@@ -38,10 +32,6 @@ const useStyles = makeStyles(theme => ({
   },
   media: {
     height: 180
-  },
-  ownerAvatar: {
-    width: theme.spacing(3),
-    height: theme.spacing(3)
   },
   adminActions: {
     justifyContent: 'flex-end'
@@ -55,9 +45,7 @@ const RestaurantDetail = props => {
   const [loaded, setLoaded] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [restaurant, setRestaurant] = useState({});
-  const [highestReview, setHighestReview] = useState(null);
-  const [lowestReview, setLowestReview] = useState(null);
-  const [recentReviews, setRecentReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const classes = useStyles();
 
   async function attachImageUrl(item) {
@@ -68,27 +56,42 @@ const RestaurantDetail = props => {
     }
   }
 
-  function withAverageRate(item) {
-    const reviews = item.reviews.items;
+  function withAverageRate(restaurant, reviews) {
     let average = reviews.reduce((acc, cur) => acc + getRateInt(cur.rate), 0);
     if (reviews.length) average /= reviews.length;
-    return { ...item, averageRate: average };
-  }
-
-  function formatDate(date) {
-    if (date) {
-      return format(new Date(date), 'MMM d, yyyy');
-    }
+    return { ...restaurant, averageRate: average };
   }
 
   function classifyReviews(reviews) {
-    reviews.sort((a, b) => getRateInt(b.rate) - getRateInt(a.rate));
-    if (reviews.length > 2) {
-      setHighestReview(reviews.shift());
-      setLowestReview(reviews.pop());
+    const processed = reviews.slice();
+    let highestReview = null;
+    let lowestReview = null;
+    processed.sort((a, b) => getRateInt(b.rate) - getRateInt(a.rate));
+    if (processed.length > 2) {
+      highestReview = processed.shift();
+      lowestReview = processed.pop();
     }
-    reviews.sort((a, b) => new Date(b.visitDate) - new Date(a.visitDate));
-    setRecentReviews(reviews);
+    processed.sort((a, b) => new Date(b.visitDate) - new Date(a.visitDate));
+    return [highestReview, lowestReview, processed];
+  }
+
+  function updateReview(newReview) {
+    setReviews(previous => {
+      const updatedReviews = [
+        ...previous.filter(p => p.id !== newReview.id),
+        newReview
+      ];
+      setRestaurant(previous => withAverageRate(previous, updatedReviews));
+      return updatedReviews;
+    });
+  }
+
+  function deleteReview(reviewId) {
+    setReviews(previous => {
+      const updatedReviews = previous.filter(p => p.id !== reviewId);
+      setRestaurant(previous => withAverageRate(previous, updatedReviews));
+      return updatedReviews;
+    });
   }
 
   useEffect(() => {
@@ -96,10 +99,12 @@ const RestaurantDetail = props => {
       const response = await API.graphql(
         graphqlOperation(getRestaurant, { id: restaurantId })
       );
-      const restaurant = response.data.getRestaurant;
+      let restaurant = response.data.getRestaurant;
       if (restaurant) {
-        setRestaurant(withAverageRate(await attachImageUrl(restaurant)));
-        classifyReviews(restaurant.reviews.items);
+        restaurant = await attachImageUrl(restaurant);
+        restaurant = withAverageRate(restaurant, restaurant.reviews.items);
+        setRestaurant(restaurant);
+        setReviews(restaurant.reviews.items);
       }
       setLoaded(true);
     }
@@ -118,6 +123,8 @@ const RestaurantDetail = props => {
       console.log('error: ', err);
     }
   }
+
+  const [highestReview, lowestReview, recentReviews] = classifyReviews(reviews);
 
   return (
     <>
@@ -173,96 +180,48 @@ const RestaurantDetail = props => {
           <Grid container justify="center">
             {highestReview && (
               <Grid item xs={12} sm={6} md={5}>
-                <Card className={classes.card}>
-                  <CardHeader
-                    avatar={<Avatar />}
-                    title={
-                      <Rating
-                        value={getRateInt(highestReview.rate)}
-                        readOnly
-                        size="small"
-                      />
-                    }
-                    subheader={formatDate(highestReview.visitDate)}
-                    action={<Chip label="highest" />}
-                  />
-                  <CardContent>
-                    <Typography className={classes.comment} component="p">
-                      {highestReview.comment}
-                    </Typography>
-                    {highestReview.reply && (
-                      <CardHeader
-                        avatar={<Avatar className={classes.ownerAvatar} />}
-                        title={
-                          <Typography color="textSecondary">
-                            {highestReview.reply}
-                          </Typography>
-                        }
-                      />
-                    )}
-                  </CardContent>
-                </Card>
+                <ReviewCard
+                  id={highestReview.id}
+                  rate={highestReview.rate}
+                  visitDate={highestReview.visitDate}
+                  comment={highestReview.comment}
+                  reply={highestReview.reply}
+                  restaurantName={restaurant.name}
+                  updateReview={updateReview}
+                  deleteReview={deleteReview}
+                  action={<Chip label="highest" />}
+                />
               </Grid>
             )}
             {lowestReview && (
               <Grid item xs={12} sm={6} md={5}>
-                <Card className={classes.card}>
-                  <CardHeader
-                    avatar={<Avatar />}
-                    title={
-                      <Rating
-                        value={getRateInt(lowestReview.rate)}
-                        readOnly
-                        size="small"
-                      />
-                    }
-                    subheader={formatDate(lowestReview.visitDate)}
-                    action={<Chip label="lowest" />}
-                  />
-                  <CardContent>
-                    <Typography className={classes.comment} component="p">
-                      {lowestReview.comment}
-                    </Typography>
-                    {lowestReview.reply && (
-                      <CardHeader
-                        avatar={<Avatar className={classes.ownerAvatar} />}
-                        title={
-                          <Typography color="textSecondary">
-                            {lowestReview.reply}
-                          </Typography>
-                        }
-                      />
-                    )}
-                  </CardContent>
-                </Card>
+                <ReviewCard
+                  id={lowestReview.id}
+                  rate={lowestReview.rate}
+                  visitDate={lowestReview.visitDate}
+                  comment={lowestReview.comment}
+                  reply={lowestReview.reply}
+                  restaurantName={restaurant.name}
+                  updateReview={updateReview}
+                  deleteReview={deleteReview}
+                  action={<Chip label="lowest" />}
+                />
               </Grid>
             )}
           </Grid>
           <Grid container justify="center">
             {recentReviews.map(({ id, rate, visitDate, comment, reply }) => (
               <Grid item key={id} xs={12} sm={10} md={8}>
-                <Card className={classes.card}>
-                  <CardHeader
-                    avatar={<Avatar />}
-                    title={
-                      <Rating value={getRateInt(rate)} readOnly size="small" />
-                    }
-                    subheader={formatDate(visitDate)}
-                  />
-                  <CardContent>
-                    <Typography className={classes.comment} component="p">
-                      {comment}
-                    </Typography>
-                    {reply && (
-                      <CardHeader
-                        avatar={<Avatar className={classes.ownerAvatar} />}
-                        title={
-                          <Typography color="textSecondary">{reply}</Typography>
-                        }
-                      />
-                    )}
-                  </CardContent>
-                </Card>
+                <ReviewCard
+                  id={id}
+                  rate={rate}
+                  visitDate={visitDate}
+                  comment={comment}
+                  reply={reply}
+                  restaurantName={restaurant.name}
+                  updateReview={updateReview}
+                  deleteReview={deleteReview}
+                />
               </Grid>
             ))}
           </Grid>

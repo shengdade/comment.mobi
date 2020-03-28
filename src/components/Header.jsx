@@ -3,6 +3,7 @@ import RoleContext from './RoleContext';
 import { Auth } from 'aws-amplify';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import { useLocation } from 'react-router-dom';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,8 +19,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ButtonAppBar() {
+export default function Header() {
   const role = useContext(RoleContext);
+  const location = useLocation();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -36,7 +38,7 @@ export default function ButtonAppBar() {
             Restaurants
           </Link>
         </Typography>
-        {role === 'owners' && (
+        {role === 'owners' && location.pathname === '/' && (
           <RestaurantCreate open={open} handleClose={() => setOpen(false)} />
         )}
         <Tooltip title={role}>
