@@ -53,6 +53,7 @@ function App() {
             <Header />
             <Switch>
               <Route exact path="/" component={RestaurantList} />
+              <Route exact path="/index.html" component={RestaurantList} />
               <Route exact path="/admin" component={Admin} />
               <Route path="/restaurants/:id" component={RestaurantDetail} />
             </Switch>
