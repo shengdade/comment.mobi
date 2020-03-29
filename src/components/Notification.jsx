@@ -2,7 +2,14 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
-const Notification = ({ open, setOpen, severity, message }) => {
+const Notification = ({
+  open,
+  setOpen,
+  severity,
+  message,
+  vertical = 'top',
+  horizontal = 'center'
+}) => {
   function handleClose(event, reason) {
     // ignoring user clicking away
     if (reason === 'clickaway') {
@@ -16,7 +23,7 @@ const Notification = ({ open, setOpen, severity, message }) => {
       open={open}
       autoHideDuration={3000}
       onClose={handleClose}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={{ vertical, horizontal }}
     >
       <Alert
         onClose={handleClose}
