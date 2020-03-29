@@ -41,13 +41,20 @@ export default function Header() {
         {role === 'owners' && location.pathname === '/' && (
           <RestaurantCreate open={open} handleClose={() => setOpen(false)} />
         )}
+        {role === 'admin' && (
+          <Tooltip title={'admin'}>
+            <IconButton component={RouterLink} to="/admin">
+              <Icon color="action">supervised_user_circle</Icon>
+            </IconButton>
+          </Tooltip>
+        )}
         <Tooltip title={role}>
-          <IconButton color="primary">
+          <IconButton>
             <Icon color="action">person_outline</Icon>
           </IconButton>
         </Tooltip>
         <Tooltip title="sign out">
-          <IconButton color="primary" onClick={() => Auth.signOut()}>
+          <IconButton onClick={() => Auth.signOut()}>
             <Icon color="action">exit_to_app</Icon>
           </IconButton>
         </Tooltip>
