@@ -71,7 +71,11 @@ const RestaurantCreate = () => {
   return (
     <>
       <Tooltip title="create restaurant">
-        <IconButton color="primary" onClick={() => setOpen(true)}>
+        <IconButton
+          color="primary"
+          onClick={() => setOpen(true)}
+          data-cy="create-restaurant-button"
+        >
           <Icon color="action">add_circle_outline</Icon>
         </IconButton>
       </Tooltip>

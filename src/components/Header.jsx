@@ -54,10 +54,7 @@ export default function Header() {
           </IconButton>
         </Tooltip>
         <Tooltip title="sign out">
-          <IconButton
-            data-test="sign-out-button"
-            onClick={() => Auth.signOut()}
-          >
+          <IconButton data-cy="sign-out-button" onClick={() => Auth.signOut()}>
             <Icon color="action">exit_to_app</Icon>
           </IconButton>
         </Tooltip>

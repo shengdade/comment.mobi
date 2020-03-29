@@ -44,6 +44,7 @@ const RestaurantDialog = ({
           value={name}
           fullWidth
           onChange={e => setName(e.target.value)}
+          data-cy="restaurant-name-input"
         />
         {file ? (
           <Typography style={{ marginTop: '30px' }} color="primary">
@@ -66,6 +67,7 @@ const RestaurantDialog = ({
             type="file"
             style={{ display: 'none' }}
             onChange={handleFileChange}
+            data-cy="file-input"
           />
         </Button>
       </DialogContent>
@@ -73,7 +75,12 @@ const RestaurantDialog = ({
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button disabled={!name || !file} onClick={action} color="primary">
+        <Button
+          disabled={!name || !file}
+          onClick={action}
+          color="primary"
+          data-cy="restaurant-dialog-confirm"
+        >
           {dialogAction}
         </Button>
       </DialogActions>
