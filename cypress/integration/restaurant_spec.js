@@ -3,6 +3,10 @@ describe('Restaurant:', function() {
     cy.visit('/');
   });
 
+  afterEach(function() {
+    cy.get(selectors.signOutButton).click();
+  });
+
   describe('Create:', () => {
     it('owner 1 signs in and creates 1 restaurant', () => {
       cy.get(selectors.usernameInput).type('cypress-owner1@comment.mobi');
@@ -13,7 +17,6 @@ describe('Restaurant:', function() {
       cy.get(selectors.restaurantFileInput).attachFile('cypress-1.jpg');
       cy.get(selectors.restaurantConfirmButton).click();
       cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.1');
-      cy.get(selectors.signOutButton).click();
     });
 
     it('owner 2 signs in and creates 2 restaurants', () => {
@@ -30,7 +33,6 @@ describe('Restaurant:', function() {
       cy.get(selectors.restaurantConfirmButton).click();
       cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.2');
       cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.3');
-      cy.get(selectors.signOutButton).click();
     });
   });
 
@@ -48,7 +50,6 @@ describe('Restaurant:', function() {
         'not.contain',
         'Cypress Delicious No.3'
       );
-      cy.get(selectors.signOutButton).click();
     });
 
     it('owner 2 signs in and only see his 2 restaurants', () => {
@@ -61,7 +62,6 @@ describe('Restaurant:', function() {
         'not.contain',
         'Cypress Delicious No.1'
       );
-      cy.get(selectors.signOutButton).click();
     });
 
     it('user signs in and can see all 3 restaurants', () => {
@@ -71,7 +71,6 @@ describe('Restaurant:', function() {
       cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.1');
       cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.2');
       cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.3');
-      cy.get(selectors.signOutButton).click();
     });
   });
 
@@ -98,7 +97,8 @@ describe('Restaurant:', function() {
       cy.get(selectors.signInPasswordInput).type('1234567890');
       cy.get(selectors.signInSignInButton).click();
       [1, 2, 3].forEach(n => {
-        const restaurantName = `Cypress Delicious No.${n}`;
+        const restaurantName =
+          n === 1 ? 'Updated Delicious No.1' : `Cypress Delicious No.${n}`;
         cy.get(selectors.restaurantItemName)
           .contains(restaurantName)
           .click();
