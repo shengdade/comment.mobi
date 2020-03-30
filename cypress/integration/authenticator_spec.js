@@ -22,6 +22,22 @@ describe('Authenticator:', function() {
       cy.get(selectors.signOutButton).should('be.visible');
     });
   });
+
+  describe('Sign Out', () => {
+    it('signs the user out when the signout button is clicked', () => {
+      cy.get(selectors.usernameInput).type('cypress-user@comment.mobi');
+      cy.get(selectors.signInPasswordInput).type('1234567890');
+      cy.get(selectors.signInSignInButton)
+        .contains('Sign In')
+        .click();
+      cy.get(selectors.signOutButton).click();
+      cy.get(selectors.usernameInput).should(
+        'have.attr',
+        'placeholder',
+        'Enter your email'
+      );
+    });
+  });
 });
 
 export const selectors = {
