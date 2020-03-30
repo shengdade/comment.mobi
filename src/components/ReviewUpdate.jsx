@@ -55,7 +55,11 @@ const ReviewUpdate = ({
 
   return (
     <>
-      <Button color="primary" onClick={() => setOpen(true)}>
+      <Button
+        color="primary"
+        onClick={() => setOpen(true)}
+        data-cy="review-card-edit-button"
+      >
         Edit
       </Button>
       <ReviewDialog

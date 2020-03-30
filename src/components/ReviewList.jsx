@@ -45,6 +45,7 @@ function ReviewList({ restaurantId, changeReview, reviews }) {
                         reviewVisitDate: visitDate
                       })
                     }
+                    data-cy="review-list-reply-button"
                   >
                     Reply
                   </Button>

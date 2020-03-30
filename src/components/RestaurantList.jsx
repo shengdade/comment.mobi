@@ -251,6 +251,7 @@ const RestaurantList = () => {
                             restaurantOwner: owner
                           })
                         }
+                        data-cy="restaurant-review-button"
                       >
                         Review
                       </Button>

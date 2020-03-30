@@ -76,13 +76,21 @@ const ReviewCard = ({
         action={action}
       />
       <CardContent>
-        <Typography className={classes.comment} component="p">
+        <Typography
+          className={classes.comment}
+          component="p"
+          data-cy="review-card-comment"
+        >
           {comment}
         </Typography>
         {reply && (
           <CardHeader
             avatar={<Avatar className={classes.ownerAvatar} />}
-            title={<Typography color="textSecondary">{reply}</Typography>}
+            title={
+              <Typography color="textSecondary" data-cy="review-card-reply">
+                {reply}
+              </Typography>
+            }
           />
         )}
       </CardContent>
@@ -96,7 +104,11 @@ const ReviewCard = ({
             restaurantName={restaurantName}
             updateReview={updateReview}
           />
-          <Button color="primary" onClick={() => setAlertOpen(true)}>
+          <Button
+            color="primary"
+            onClick={() => setAlertOpen(true)}
+            data-cy="review-card-delete-button"
+          >
             Delete
           </Button>
           <AlertDialog

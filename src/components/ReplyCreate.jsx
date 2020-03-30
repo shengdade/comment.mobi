@@ -98,13 +98,19 @@ const ReplyCreate = ({
             value={reply}
             onChange={e => setReply(e.target.value)}
             style={{ margin: '30px 0 20px 0' }}
+            data-cy="reply-create-reply-input"
           />
         </DialogContent>
         <DialogActions>
           <Button color="primary" onClick={handleDialogClose}>
             Cancel
           </Button>
-          <Button disabled={!reply} onClick={replyReview} color="primary">
+          <Button
+            disabled={!reply}
+            onClick={replyReview}
+            color="primary"
+            data-cy="reply-create-reply-confirm"
+          >
             Reply
           </Button>
         </DialogActions>

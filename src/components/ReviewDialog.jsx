@@ -47,6 +47,7 @@ const ReviewDialog = ({
           value={comment}
           onChange={e => setComment(e.target.value)}
           style={{ margin: '30px 0 20px 0' }}
+          data-cy="review-comment-input"
         />
         <KeyboardDatePicker
           disableToolbar
@@ -67,6 +68,7 @@ const ReviewDialog = ({
           disabled={!rate || !visitDate.getTime() || !comment}
           onClick={action}
           color="primary"
+          data-cy="review-submit-button"
         >
           {dialogAction}
         </Button>
