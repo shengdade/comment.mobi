@@ -162,7 +162,11 @@ const RestaurantDetail = props => {
                       name={restaurant.name}
                       setRestaurant={setRestaurant}
                     />
-                    <Button color="primary" onClick={() => setAlertOpen(true)}>
+                    <Button
+                      color="primary"
+                      onClick={() => setAlertOpen(true)}
+                      data-cy="restaurant-delete-button"
+                    >
                       Delete
                     </Button>
                     <AlertDialog

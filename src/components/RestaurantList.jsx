@@ -198,7 +198,7 @@ const RestaurantList = () => {
           />
           <Box ml={1}>& Up</Box>
         </div>
-        <Grid container>
+        <Grid container data-cy="restaurant-list-grid">
           {restaurants
             .filter(r => r.averageRate >= ratingAbove)
             .map(({ id, name, owner, averageRate, imageUrl, reviews }) => (
@@ -218,6 +218,7 @@ const RestaurantList = () => {
                           gutterBottom
                           color="textPrimary"
                           variant="h6"
+                          data-cy="restaurant-list-item-name"
                         >
                           {name}
                         </Typography>

@@ -74,7 +74,11 @@ const RestaurantUpdate = ({ id, name: previousName, setRestaurant }) => {
 
   return (
     <>
-      <Button color="primary" onClick={() => setOpen(true)}>
+      <Button
+        color="primary"
+        onClick={() => setOpen(true)}
+        data-cy="restaurant-edit-button"
+      >
         Edit
       </Button>
       <RestaurantDialog

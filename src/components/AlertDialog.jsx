@@ -30,7 +30,12 @@ export default function AlertDialog({
         <Button onClick={handleClose} color="primary">
           No
         </Button>
-        <Button onClick={action} color="primary" autoFocus>
+        <Button
+          onClick={action}
+          color="primary"
+          autoFocus
+          data-cy="alert-dialog-confirm"
+        >
           Yes
         </Button>
       </DialogActions>
