@@ -40,7 +40,12 @@ const AdminDialog = ({
       {creating && <LinearProgress />}
       <DialogTitle>Attach a new role</DialogTitle>
       <List>
-        <ListItem button onClick={() => handleAdd('users')} disabled={isUser}>
+        <ListItem
+          button
+          onClick={() => handleAdd('users')}
+          disabled={isUser}
+          data-cy="admin-dialog-user"
+        >
           <ListItemAvatar>
             <Avatar />
           </ListItemAvatar>
@@ -50,7 +55,12 @@ const AdminDialog = ({
           />
         </ListItem>
         <Divider component="li" />
-        <ListItem button onClick={() => handleAdd('owners')} disabled={isOwner}>
+        <ListItem
+          button
+          onClick={() => handleAdd('owners')}
+          disabled={isOwner}
+          data-cy="admin-dialog-owner"
+        >
           <ListItemAvatar>
             <Avatar />
           </ListItemAvatar>
@@ -60,7 +70,12 @@ const AdminDialog = ({
           />
         </ListItem>
         <Divider component="li" />
-        <ListItem button onClick={() => handleAdd('admin')} disabled={isAdmin}>
+        <ListItem
+          button
+          onClick={() => handleAdd('admin')}
+          disabled={isAdmin}
+          data-cy="admin-dialog-admin"
+        >
           <ListItemAvatar>
             <Avatar />
           </ListItemAvatar>

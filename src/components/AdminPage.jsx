@@ -153,6 +153,7 @@ const AdminPage = () => {
                           className={classes.chip}
                           label="User"
                           onDelete={() => handleDelete(Username, 'users')}
+                          data-cy="admin-remove-user-role-chip"
                         />
                       )}
                       {owners[Username] && (
@@ -160,6 +161,7 @@ const AdminPage = () => {
                           className={classes.chip}
                           label="Owner"
                           onDelete={() => handleDelete(Username, 'owners')}
+                          data-cy="admin-remove-owner-role-chip"
                         />
                       )}
                       {admins[Username] && (
@@ -167,6 +169,7 @@ const AdminPage = () => {
                           className={classes.chip}
                           label="Admin"
                           onDelete={() => handleDelete(Username, 'admin')}
+                          data-cy="admin-remove-admin-role-chip"
                         />
                       )}
                       {(!users[Username] ||
@@ -175,13 +178,17 @@ const AdminPage = () => {
                         <IconButton
                           size="small"
                           onClick={() => handleAdd(Username)}
+                          data-cy="admin-add-role-button"
                         >
                           <Icon>add</Icon>
                         </IconButton>
                       )}
                     </div>
                     <ListItemSecondaryAction>
-                      <IconButton onClick={() => handleUserDelete(Username)}>
+                      <IconButton
+                        onClick={() => handleUserDelete(Username)}
+                        data-cy="admin-delete-role-button"
+                      >
                         <Icon>delete</Icon>
                       </IconButton>
                     </ListItemSecondaryAction>

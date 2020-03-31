@@ -27,7 +27,11 @@ export default function AlertDialog({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button
+          onClick={handleClose}
+          color="primary"
+          data-cy="alert-dialog-cancel"
+        >
           No
         </Button>
         <Button
