@@ -14,7 +14,7 @@ describe('Review:', function() {
     cy.get(selectors.signInSignInButton).click();
     cy.get(selectors.createRestaurantButton).click();
     cy.get(selectors.restaurantNameInput).type('Cypress Delicious No.1');
-    cy.get(selectors.restaurantFileInput).attachFile('cypress-2.jpg');
+    cy.get(selectors.restaurantFileInput).attachFile('cypress-1.jpg');
     cy.get(selectors.restaurantConfirmButton).click();
     cy.get(selectors.restaurantListGrid).contains('Cypress Delicious No.1');
     cy.get(selectors.signOutButton).click();

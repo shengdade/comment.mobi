@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { createReview } from '../graphql';
-import Notification from './Notification';
+import { createReview } from '../../graphql';
+import Notification from '../utils/Notification';
 import ReviewDialog from './ReviewDialog';
-import { translateRate } from './Utils';
+import { translateRate } from '../utils/Rate';
 
 const ReviewCreate = ({
   open,

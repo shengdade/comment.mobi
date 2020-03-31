@@ -1,20 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { deleteReview } from '../graphql';
-import { getRateInt } from './Utils';
+import { deleteReview } from '../../graphql';
+import { getRateInt } from '../utils/Rate';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import RoleContext from './RoleContext';
+import RoleContext from '../RoleContext';
 import { format } from 'date-fns';
 import CardHeader from '@material-ui/core/CardHeader';
 import Rating from '@material-ui/lab/Rating';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import ReviewUpdate from './ReviewUpdate';
-import AlertDialog from './AlertDialog';
+import AlertDialog from '../utils/AlertDialog';
 
 const useStyles = makeStyles(theme => ({
   card: {

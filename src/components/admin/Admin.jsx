@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import RoleContext from './RoleContext';
+import RoleContext from '../RoleContext';
 import AdminPage from './AdminPage';
 import Typography from '@material-ui/core/Typography';
 

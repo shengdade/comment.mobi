@@ -11,7 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
-import RestaurantCreate from './RestaurantCreate';
+import RestaurantCreate from './restaurant/RestaurantCreate';
 
 const useStyles = makeStyles(theme => ({
   title: {

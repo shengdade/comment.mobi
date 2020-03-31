@@ -13,9 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import AdminDialog from './AdminDialog';
-import Notification from './Notification';
+import Notification from '../utils/Notification';
 import { getUser, removeFromGroup, disableUser } from './AdminQuery';
-import AlertDialog from './AlertDialog';
+import AlertDialog from '../utils/AlertDialog';
 
 const useStyles = makeStyles(theme => ({
   chip: {

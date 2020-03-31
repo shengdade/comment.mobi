@@ -2,14 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
-import RoleContext from './RoleContext';
+import RoleContext from '../RoleContext';
 import clsx from 'clsx';
 import {
   listRestaurants,
   onCreateRestaurant,
   onCreateReview
-} from '../graphql';
-import ReviewCreate from './ReviewCreate';
+} from '../../graphql';
+import ReviewCreate from '../review/ReviewCreate';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -26,8 +26,8 @@ import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-import ReviewList from './ReviewList';
-import { getRateInt } from './Utils';
+import ReviewList from '../review/ReviewList';
+import { getRateInt } from '../utils/Rate';
 
 const useStyles = makeStyles(theme => ({
   media: {

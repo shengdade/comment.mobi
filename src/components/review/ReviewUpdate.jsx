@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
-import { updateReview } from '../graphql';
+import { updateReview } from '../../graphql';
 import Button from '@material-ui/core/Button';
-import Notification from './Notification';
+import Notification from '../utils/Notification';
 import ReviewDialog from './ReviewDialog';
-import { getRateInt, translateRate } from './Utils';
+import { getRateInt, translateRate } from '../utils/Rate';
 
 const ReviewUpdate = ({
   id,

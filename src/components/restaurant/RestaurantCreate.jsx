@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import { API, Storage, Auth, graphqlOperation } from 'aws-amplify';
-import { createRestaurant } from '../graphql';
+import { createRestaurant } from '../../graphql';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Icon from '@material-ui/core/Icon';
-import Notification from './Notification';
+import Notification from '../utils/Notification';
 import RestaurantDialog from './RestaurantDialog';
-import config from '../aws-exports';
+import config from '../../aws-exports';
 
 const {
   aws_user_files_s3_bucket_region: region,

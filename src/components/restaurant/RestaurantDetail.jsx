@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { API, Storage, graphqlOperation } from 'aws-amplify';
-import { getRestaurant, deleteRestaurant } from '../graphql';
-import { getRateInt } from './Utils';
-import RoleContext from './RoleContext';
+import { getRestaurant, deleteRestaurant } from '../../graphql';
+import { getRateInt } from '../utils/Rate';
+import RoleContext from '../RoleContext';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -18,8 +18,8 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import RestaurantUpdate from './RestaurantUpdate';
-import AlertDialog from './AlertDialog';
-import ReviewCard from './ReviewCard';
+import AlertDialog from '../utils/AlertDialog';
+import ReviewCard from '../review/ReviewCard';
 
 const useStyles = makeStyles(theme => ({
   card: {

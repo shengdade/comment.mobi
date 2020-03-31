@@ -11,9 +11,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import green from '@material-ui/core/colors/green';
 import orange from '@material-ui/core/colors/orange';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Admin from './Admin';
-import RestaurantList from './RestaurantList';
-import RestaurantDetail from './RestaurantDetail';
+import Admin from './admin/Admin';
+import RestaurantList from './restaurant/RestaurantList';
+import RestaurantDetail from './restaurant/RestaurantDetail';
 import Header from './Header';
 
 function App() {

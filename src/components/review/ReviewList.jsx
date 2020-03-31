@@ -8,7 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ReplyCreate from './ReplyCreate';
 import Avatar from '@material-ui/core/Avatar';
 import Rating from '@material-ui/lab/Rating';
-import { getRateInt } from './Utils';
+import { getRateInt } from '../utils/Rate';
 import Button from '@material-ui/core/Button';
 
 function ReviewList({ restaurantId, changeReview, reviews }) {
