@@ -1,0 +1,73 @@
+mutation CreateReview($input: CreateReviewInput!) {
+  createReview(input: $input) {
+    id
+    rate
+    visitDate
+    comment
+    reviewRestaurantId
+    reviewRestaurantOwner
+  }
+}
+
+mutation UpdateReview($input: UpdateReviewInput!) {
+  updateReview(input: $input) {
+    id
+    rate
+    visitDate
+    comment
+    restaurant {
+      id
+      name
+      owner
+    }
+  }
+}
+
+mutation UpdateReply($input: UpdateReviewInput!) {
+  updateReview(input: $input) {
+    id
+    rate
+    visitDate
+    comment
+    reply
+  }
+}
+
+mutation DeleteReview($id: ID!) {
+  deleteReview(input: { id: $id }) {
+    id
+    rate
+    visitDate
+    comment
+  }
+}
+
+query GetReview($id: ID!) {
+  getReview(id: $id) {
+    id
+    rate
+    visitDate
+    comment
+    restaurant {
+      id
+      name
+      owner
+    }
+  }
+}
+
+query ListReview {
+  listReviews {
+    items {
+      id
+      rate
+      visitDate
+      comment
+      restaurant {
+        id
+        name
+        owner
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-describe('Authenticator:', function() {
+describe('Authenticator', function() {
   beforeEach(function() {
     cy.visit('/');
   });

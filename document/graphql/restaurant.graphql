@@ -1,14 +1,26 @@
-mutation CreateRestaurant {
-  createRestaurant(
-    input: { name: "dade place", owner: "10ff86ab-fd57-46d4-bc22-c9905adf6eda" }
-  ) {
+mutation CreateRestaurant($input: CreateRestaurantInput!) {
+  createRestaurant(input: $input) {
     id
+    name
+    owner
+    image {
+      bucket
+      key
+      region
+    }
   }
 }
 
-mutation UpdateRestaurant($id: ID!) {
-  updateRestaurant(input: { id: $id, name: "changed" }) {
+mutation UpdateRestaurant($input: UpdateRestaurantInput!) {
+  updateRestaurant(input: $input) {
     id
+    name
+    owner
+    image {
+      bucket
+      region
+      key
+    }
   }
 }
 
@@ -22,7 +34,6 @@ query GetRestaurant($id: ID!) {
   getRestaurant(id: $id) {
     id
     name
-    averageRate
     reviews {
       items {
         rate
@@ -38,7 +49,6 @@ query ListRestaurant {
     items {
       id
       name
-      averageRate
       reviews {
         items {
           rate

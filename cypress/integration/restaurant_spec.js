@@ -1,4 +1,4 @@
-describe('Restaurant:', function() {
+describe('Restaurant', function() {
   beforeEach(function() {
     cy.visit('/');
   });

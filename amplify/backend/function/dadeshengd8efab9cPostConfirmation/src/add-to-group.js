@@ -3,12 +3,12 @@
 exports.handler = async (event, context, callback) => {
   const cognitoidentityserviceprovider = new aws.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
   const groupParams = {
-    GroupName: process.env.GROUP,
+    GroupName: 'users',
     UserPoolId: event.userPoolId,
   };
 
   const addUserParams = {
-    GroupName: process.env.GROUP,
+    GroupName: 'users',
     UserPoolId: event.userPoolId,
     Username: event.userName,
   };
