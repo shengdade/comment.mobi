@@ -22,7 +22,7 @@ describe('Review', function() {
 
   after(function() {
     cy.visit('/');
-    cy.get(selectors.usernameInput).type('admin@comment.mobi');
+    cy.get(selectors.usernameInput).type('cypress-admin@comment.mobi');
     cy.get(selectors.signInPasswordInput).type('1234567890');
     cy.get(selectors.signInSignInButton).click();
     cy.get(selectors.restaurantItemName)
@@ -83,7 +83,7 @@ describe('Review', function() {
 
   describe('Update:', () => {
     it("admin signs in and updates user's review", () => {
-      cy.get(selectors.usernameInput).type('admin@comment.mobi');
+      cy.get(selectors.usernameInput).type('cypress-admin@comment.mobi');
       cy.get(selectors.signInPasswordInput).type('1234567890');
       cy.get(selectors.signInSignInButton).click();
       cy.get(selectors.restaurantItemName)
@@ -100,7 +100,7 @@ describe('Review', function() {
 
   describe('Delete:', () => {
     it('admin signs in and deletes this review', () => {
-      cy.get(selectors.usernameInput).type('admin@comment.mobi');
+      cy.get(selectors.usernameInput).type('cypress-admin@comment.mobi');
       cy.get(selectors.signInPasswordInput).type('1234567890');
       cy.get(selectors.signInSignInButton).click();
       cy.get(selectors.restaurantItemName)

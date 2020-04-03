@@ -1,15 +1,28 @@
 {
-    "dev": {
+    "auth": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-dade-sheng-dev-213652-authRole",
-            "UnauthRoleArn": "arn:aws:iam::852396516851:role/amplify-dade-sheng-dev-213652-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::852396516851:role/amplify-dade-sheng-dev-213652-authRole",
+            "AuthRoleName": "amplify-dade-sheng-auth-104349-authRole",
+            "UnauthRoleArn": "arn:aws:iam::387061162159:role/amplify-dade-sheng-auth-104349-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::387061162159:role/amplify-dade-sheng-auth-104349-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-dade-sheng-dev-213652-deployment",
-            "UnauthRoleName": "amplify-dade-sheng-dev-213652-unauthRole",
-            "StackName": "amplify-dade-sheng-dev-213652",
-            "StackId": "arn:aws:cloudformation:us-east-1:852396516851:stack/amplify-dade-sheng-dev-213652/1309a2d0-7073-11ea-b1f7-0e36ce6a2c7c",
-            "AmplifyAppId": "d1jtj36u9ngava"
+            "DeploymentBucketName": "amplify-dade-sheng-auth-104349-deployment",
+            "UnauthRoleName": "amplify-dade-sheng-auth-104349-unauthRole",
+            "StackName": "amplify-dade-sheng-auth-104349",
+            "StackId": "arn:aws:cloudformation:us-east-1:387061162159:stack/amplify-dade-sheng-auth-104349/88cb5d10-75b9-11ea-879e-0e8805686543",
+            "AmplifyAppId": "d2k8rixdj5xoyf"
+        },
+        "categories": {
+            "auth": {
+                "dadeshengd8efab9c": {},
+                "userPoolGroups": {}
+            },
+            "function": {
+                "AdminQueriesab40cfe5": {},
+                "dadeshengd8efab9cPostConfirmation": {
+                    "GROUP": "users"
+                },
+                "dadeshengd8efab9c": {}
+            }
         }
     }
 }

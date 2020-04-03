@@ -76,7 +76,7 @@ describe('Restaurant', function() {
 
   describe('Update:', () => {
     it("admin signs in and updates owner 1's restaurant", () => {
-      cy.get(selectors.usernameInput).type('admin@comment.mobi');
+      cy.get(selectors.usernameInput).type('cypress-admin@comment.mobi');
       cy.get(selectors.signInPasswordInput).type('1234567890');
       cy.get(selectors.signInSignInButton).click();
       cy.get(selectors.restaurantItemName)
@@ -93,7 +93,7 @@ describe('Restaurant', function() {
 
   describe('Delete:', () => {
     it('admin signs in and delete all restaurants', () => {
-      cy.get(selectors.usernameInput).type('admin@comment.mobi');
+      cy.get(selectors.usernameInput).type('cypress-admin@comment.mobi');
       cy.get(selectors.signInPasswordInput).type('1234567890');
       cy.get(selectors.signInSignInButton).click();
       [1, 2, 3].forEach(n => {

@@ -101,7 +101,7 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-dade-sheng-dev-213652-deployment",
+					"S3Bucket": "amplify-dade-sheng-auth-104349-deployment",
 					"S3Key": "amplify-builds/dadeshengd8efab9cPostConfirmation-7554534e45574e573234-build.zip"
 				}
 			}

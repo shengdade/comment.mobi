@@ -5,12 +5,10 @@
             "Type": "String",
             "Default": "authdadeshengd8efab9cUserPoolId"
         },
-        
         "authdadeshengd8efab9cIdentityPoolId": {
             "Type": "String",
             "Default": "authdadeshengd8efab9cIdentityPoolId"
         },
-        
         "authdadeshengd8efab9cAppClientID": {
             "Type": "String",
             "Default": "authdadeshengd8efab9cAppClientID"
@@ -46,20 +44,17 @@
           "Properties" : {
               "GroupName" : "admin",
               "Precedence" : 1,
-              
               "RoleArn" : {
                 "Fn::GetAtt": [
                     "adminGroupRole",
                     "Arn"
                 ]
               },
-              
               "UserPoolId" : {
                 "Ref": "authdadeshengd8efab9cUserPoolId"
               } 
             }
         },
-        
         "adminGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -93,27 +88,23 @@
                 }
             }
         },
-     
     
         "ownersGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
               "GroupName" : "owners",
               "Precedence" : 2,
-              
               "RoleArn" : {
                 "Fn::GetAtt": [
                     "ownersGroupRole",
                     "Arn"
                 ]
               },
-              
               "UserPoolId" : {
                 "Ref": "authdadeshengd8efab9cUserPoolId"
               } 
             }
         },
-        
         "ownersGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -147,27 +138,23 @@
                 }
             }
         },
-     
     
         "usersGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
               "GroupName" : "users",
               "Precedence" : 3,
-              
               "RoleArn" : {
                 "Fn::GetAtt": [
                     "usersGroupRole",
                     "Arn"
                 ]
               },
-              
               "UserPoolId" : {
                 "Ref": "authdadeshengd8efab9cUserPoolId"
               } 
             }
         },
-        
         "usersGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -201,8 +188,6 @@
                 }
             }
         },
-     
-    
     
         "LambdaExecutionRole": {
             "Type": "AWS::IAM::Role",
@@ -398,9 +383,7 @@
             },
             "DependsOn": ["RoleMapFunction"]
         }
-   
     },
-    
     "Outputs": {
       
         "adminGroupRole": {
@@ -437,5 +420,4 @@
         
       
     }
-    
 }
