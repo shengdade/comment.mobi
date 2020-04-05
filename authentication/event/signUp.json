@@ -1,0 +1,5 @@
+{
+  "httpMethod": "POST",
+  "path": "/user",
+  "body": "{\"email\":\"dade@live.cn\",\"password\":\"12345abc\"}"
+}

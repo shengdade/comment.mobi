@@ -1,0 +1,8 @@
+{
+  "httpMethod": "PUT",
+  "path": "/user",
+  "body": "{\"email\":\"dade@live.cn\",\"password\":\"12345abc\",\"role\":\"user\"}",
+  "headers": {
+    "Cookie": "authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhZGVAbGl2ZS5jbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTU4NjA1MDkyOH0.738adnN17Qs_vigB_FIaj9nkNCs16_zcGCSIFZJz6RY"
+  }
+}

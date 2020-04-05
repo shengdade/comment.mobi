@@ -1,0 +1,16 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "signUp.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "dade",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.4.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
